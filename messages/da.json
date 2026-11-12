@@ -1,0 +1,553 @@
+{
+  "app": {
+    "tagline": "Øv en svær samtale højt, før du tager den.",
+    "skipToContent": "Spring til indholdet",
+    "home": "Jude, til forsiden"
+  },
+  "errors": {
+    "invalid": "Noget i det, du skrev, kunne ikke bruges. Se felterne igennem.",
+    "notFound": "Det findes ikke længere.",
+    "generic": "Det gik galt. Prøv igen.",
+    "unauthorized": "Du er ikke logget ind længere. Log ind igen.",
+    "notConfigured": "Jude er ikke sat op med en nøgle til Mistral endnu.",
+    "ai": "Mistral svarede ikke. Prøv igen om lidt.",
+    "stopped": "Samtalen er stoppet og kan ikke fortsættes.",
+    "consent": "Sig ja til, hvordan samtalen behandles, før du starter."
+  },
+  "common": {
+    "cancel": "Annullér",
+    "save": "Gem",
+    "saving": "Gemmer …",
+    "saved": "Gemt"
+  },
+  "auth": {
+    "logout": "Log ud",
+    "loginLabel": "Log ind",
+    "loginTitle": "Log ind på Jude",
+    "registerLabel": "Opret konto",
+    "registerTitle": "Opret din konto",
+    "firstAccount": "Det er den første konto i denne installation. Bagefter lukker tilmeldingen, medmindre den, der driver installationen, åbner den.",
+    "closedTitle": "Tilmelding er lukket",
+    "closedBody": "Denne installation tager ikke imod nye konti. Den, der driver den, kan åbne for tilmelding.",
+    "name": "Navn",
+    "email": "E-mail",
+    "password": "Kodeord",
+    "passwordHint": "Mindst {count} tegn.",
+    "loginSubmit": "Log ind",
+    "registerSubmit": "Opret konto",
+    "toLogin": "Har du en konto? Log ind",
+    "toRegister": "Ny her? Opret en konto",
+    "errors": {
+      "invalid": "Udfyld felterne. Kodeordet skal have mindst 10 tegn.",
+      "credentials": "E-mail eller kodeord passer ikke.",
+      "tooMany": "For mange forsøg. Vent et kvarter, og prøv igen.",
+      "signupClosed": "Tilmelding er lukket i denne installation.",
+      "emailTaken": "Der findes allerede en konto med den e-mail.",
+      "code": "Koden passer ikke. Prøv igen med den nyeste kode.",
+      "expired": "Det tog for lang tid. Log ind igen.",
+      "passkeyCancelled": "Der blev ikke brugt en passkey. Prøv igen, eller log ind med kodeord."
+    },
+    "code": "Kode",
+    "codeHint": "De seks cifre fra din godkendelses-app, eller en af dine gendannelseskoder.",
+    "codeSubmit": "Bekræft",
+    "or": "Eller uden kodeord:",
+    "passkeyLogin": "Log ind med passkey"
+  },
+  "account": {
+    "label": "Konto",
+    "title": "Konto og data",
+    "export": {
+      "label": "Dine data",
+      "title": "Hent alle dine data",
+      "hint": "Din profil, dit forbrug pr. dag og ændringsloggen for profilen, som JSON. Der er ingen samtaler at hente, fordi de aldrig gemmes.",
+      "json": "Hent som JSON"
+    },
+    "delete": {
+      "label": "Slet konto",
+      "title": "Slet konto",
+      "lead": "Sletter din konto, din profil og ændringsloggen med det samme.",
+      "open": "Slet min konto",
+      "question": "Slet din konto for altid?",
+      "detail": "Din konto, din profil og hele ændringsloggen slettes med det samme. Det kan ikke fortrydes.",
+      "confirmLabel": "Skriv {email} for at bekræfte",
+      "cancel": "Fortryd",
+      "confirm": "Slet alt",
+      "errors": {
+        "unauthorized": "Du er ikke logget ind længere.",
+        "mismatch": "E-mailen passer ikke med din konto.",
+        "generic": "Det lykkedes ikke. Intet er slettet. Prøv igen."
+      }
+    },
+    "security": {
+      "label": "Sikkerhed",
+      "title": "Sikkerhed",
+      "lead": "Slå to-trinsbekræftelse til, så et kodeord alene ikke er nok, eller log ind med en passkey på din computer eller telefon."
+    },
+    "totp": {
+      "title": "To-trinsbekræftelse",
+      "off": "Slået fra. Kun kodeordet skal til for at logge ind.",
+      "on": "Slået til. Du har {count, plural, =0 {ingen gendannelseskoder} one {# gendannelseskode} other {# gendannelseskoder}} tilbage.",
+      "enable": "Slå to-trinsbekræftelse til",
+      "scanTitle": "Scan koden med din godkendelses-app",
+      "scanBody": "Brug fx Microsoft Authenticator, Google Authenticator eller 1Password. Skriv derefter de seks cifre, appen viser.",
+      "qrLabel": "QR-kode til godkendelses-appen",
+      "manual": "Kan du ikke scanne? Skriv nøglen ind i appen:",
+      "codeLabel": "Kode fra appen",
+      "confirm": "Slå til",
+      "cancel": "Fortryd",
+      "codesTitle": "Gem dine gendannelseskoder",
+      "codesBody": "Hver kode virker én gang, hvis du mister din telefon. De vises kun nu. Gem dem et sikkert sted, fx i din adgangskodemanager.",
+      "codesDone": "Jeg har gemt dem",
+      "newCodes": "Lav nye gendannelseskoder",
+      "disable": "Slå fra",
+      "codeNeeded": "Skriv en kode fra appen for at lave nye gendannelseskoder eller slå to-trinsbekræftelse fra."
+    },
+    "passkeys": {
+      "title": "Passkeys",
+      "none": "Ingen passkeys endnu.",
+      "unnamed": "Passkey uden navn",
+      "added": "Tilføjet {date}",
+      "used": "sidst brugt {date}",
+      "addedNow": "Passkey tilføjet.",
+      "nameLabel": "Navn",
+      "namePlaceholder": "Navn, fx Arbejdscomputer",
+      "add": "Tilføj passkey",
+      "remove": "Fjern",
+      "removeQuestion": "Fjern {name}?",
+      "removeDetail": "Du kan ikke længere logge ind med den. Dit kodeord og andre passkeys virker stadig.",
+      "cancel": "Fortryd",
+      "count": "{count, plural, one {# passkey} other {# passkeys}}"
+    },
+    "errors": {
+      "unauthorized": "Du er ikke logget ind længere.",
+      "invalid": "Det lykkedes ikke. Prøv igen.",
+      "code": "Koden passer ikke. Prøv igen med den nyeste kode.",
+      "expired": "Det tog for lang tid. Start forfra.",
+      "tooMany": "For mange forsøg. Vent et kvarter, og prøv igen.",
+      "generic": "Det lykkedes ikke. Prøv igen.",
+      "cancelled": "Der blev ikke lavet en passkey."
+    },
+    "profile": {
+      "title": "Profil",
+      "name": "Navn",
+      "email": "E-mail"
+    },
+    "back": "Tilbage"
+  },
+  "legal": {
+    "privacyLink": "Privatlivspolitik",
+    "termsLink": "Vilkår",
+    "updated": "Senest ændret 12. november 2026",
+    "backToStart": "Til forsiden",
+    "registerNote": "Når du opretter en konto, accepterer du <terms>vilkårene</terms> og har læst <privacy>privatlivspolitikken</privacy>.",
+    "accountLabel": "Om denne installation",
+    "accountBody": "Jude køres her af {name}. Sådan behandles dine data, og det er reglerne for at bruge den:",
+    "privacy": {
+      "title": "Privatlivspolitik",
+      "lead": "Sådan behandler {name} dine oplysninger, når du bruger Jude på denne adresse. Kort fortalt: Jude gemmer kun det, du skriver om dig selv, aldrig det, du siger i en samtale, og du kan altid hente og slette det hele.",
+      "hostingNamed": "Serveren og dens sikkerhedskopier drives af {hosting} som databehandler for {name}. Data forlader ikke EU og EØS.",
+      "hostingSelf": "Serveren og dens sikkerhedskopier drives af {name} selv. Data forlader ikke EU og EØS.",
+      "sections": [
+        {
+          "title": "Hvem er ansvarlig",
+          "body": [
+            "{name} er dataansvarlig for de oplysninger, der hører til din konto. {address}",
+            "Skriv til {email}, hvis du har spørgsmål om dine data eller vil bruge dine rettigheder."
+          ]
+        },
+        {
+          "title": "Hvad der gemmes",
+          "list": [
+            "Din konto: e-mailadresse, navn hvis du skriver et, og din adgangskode som en hash, aldrig i klartekst.",
+            "Din profil: fornavn, alder, dine roller og hvad du vil blive bedre til, hvis du skriver det.",
+            "Hvornår du sagde ja til, at dine samtaler sendes til Mistral.",
+            "En ændringslog over ændringer i din profil. Den kan ikke redigeres.",
+            "Hvor mange samtaler og ture du har brugt pr. dag, som tal, så der er et loft over forbruget.",
+            "En sessionscookie, så du forbliver logget ind."
+          ],
+          "body": [
+            "Samtalerne gemmes ikke: hverken opsætningen, det, du siger, den andens svar, lyden eller feedbacken. De findes kun i din browser, mens samtalen står på, og forsvinder, når du lukker siden."
+          ]
+        },
+        {
+          "title": "Kunstig intelligens",
+          "body": [
+            "Det, du siger i en samtale, og den opsætning, du skriver, sendes til Mistral AI, et fransk firma med servere i EU, som omsætter tale til tekst, spiller den anden person, skriver feedbacken og laver stemmen. Mistral gemmer det efter sine egne vilkår i op til 30 dage for at kunne opdage misbrug og bruger det ikke til at træne sine modeller. Jude selv gemmer det ikke."
+          ]
+        },
+        {
+          "title": "Hvorfor og med hvilken ret",
+          "body": [
+            "Oplysningerne bruges til at give dig den tjeneste, du har bedt om. Grundlaget er aftalen med dig (GDPR artikel 6, stk. 1, litra b).",
+            "Fortæller du alligevel om helbred eller andre følsomme forhold i en samtale, behandles det kun for at give dig samtalen og feedbacken. Grundlaget er dit udtrykkelige samtykke (artikel 9, stk. 2, litra a), som du giver før din første samtale. Du trækker det tilbage ved at slette din konto.",
+            "Loftet over forbruget, begrænsningen af loginforsøg og ændringsloggen bruges til at holde tjenesten sikker og betalbar. Grundlaget er en legitim interesse (artikel 6, stk. 1, litra f).",
+            "Ingen reklame, ingen sporing og ingen mails."
+          ]
+        },
+        {
+          "title": "Oplysninger om andre",
+          "body": [
+            "Brug kun fornavne om den, du øver en samtale med, og skriv ikke noget, der kan pege på en bestemt person. Jude afviser e-mailadresser, telefon- og CPR-numre i felterne."
+          ]
+        },
+        {
+          "title": "Hvis en samtale handler om krise",
+          "body": [
+            "Peger det, du siger, på tanker om selvmord eller vold, stopper Jude samtalen og viser, hvor du kan få hjælp. Det bliver heller ikke gemt."
+          ]
+        },
+        {
+          "title": "Hvor længe",
+          "body": [
+            "Så længe du har en konto. Sletter du kontoen, slettes profilen og ændringsloggen straks. Sikkerhedskopierne slettes af sig selv inden for 7 dage."
+          ]
+        },
+        {
+          "title": "Dine rettigheder",
+          "list": [
+            "Indsigt og dataportabilitet: hent alt som JSON under Konto og data.",
+            "Berigtigelse: ret din profil selv.",
+            "Sletning: slet din konto under Konto og data.",
+            "Begrænsning og indsigelse: skriv til {email}."
+          ],
+          "body": ["Er du utilfreds, kan du klage til Datatilsynet, datatilsynet.dk."]
+        },
+        {
+          "title": "Hvem der kan se dine data",
+          "body": [
+            "Kun du, når du er logget ind. {hostingSentence}",
+            "{name} kigger ikke i din profil, medmindre du beder om hjælp, eller det er nødvendigt for at rette en fejl eller stoppe misbrug."
+          ]
+        },
+        {
+          "title": "Cookies",
+          "body": [
+            "Jude bruger kun én cookie: den, der holder dig logget ind. Den er nødvendig, og der er ingen sporing. Derfor er der ingen cookiebanner."
+          ]
+        },
+        {
+          "title": "Ændringer",
+          "body": [
+            "Ændres politikken, står datoen øverst. Væsentlige ændringer varsles her mindst 30 dage før."
+          ]
+        }
+      ]
+    },
+    "terms": {
+      "title": "Vilkår",
+      "lead": "Reglerne for at bruge Jude på denne adresse, som {name} driver.",
+      "sections": [
+        {
+          "title": "Tjenesten",
+          "body": [
+            "Jude er et øvelsesværktøj. Det spiller en person, så du kan øve en svær samtale, og giver forslag til, hvad du kan gøre anderledes. Det er ikke terapi, rådgivning eller behandling, og forslagene er en hjælp, ikke en afgørelse.",
+            "Jude er open source under licensen AGPL-3.0. Koden kan hentes fra GitHub og køres af alle selv."
+          ]
+        },
+        {
+          "title": "Din konto",
+          "body": [
+            "En konto er til én person. Hold din adgangskode for dig selv, og slå gerne totrinslogin eller en passkey til."
+          ]
+        },
+        {
+          "title": "God brug",
+          "body": [
+            "Brug kun fornavne og ingen oplysninger, der kan pege på en bestemt person. Forsøg ikke at få Jude til at lave skadeligt indhold, at få adgang til andres data eller at omgå loftet over forbruget. Finder du et sikkerhedshul, så meld det som beskrevet i SECURITY.md på GitHub."
+          ]
+        },
+        {
+          "title": "Loft over forbruget",
+          "body": [
+            "Der er et loft over, hvor mange samtaler og hvor lange samtaler der kan holdes pr. dag, for dig og for hele tjenesten. Når loftet er nået, siger Jude det."
+          ]
+        },
+        {
+          "title": "Pris",
+          "body": ["Tjenesten er gratis. Skal det ændres, varsles det mindst 30 dage før."]
+        },
+        {
+          "title": "Drift og ansvar",
+          "body": [
+            "Jude leveres, som den er, uden garanti for, at den altid kører, eller at feedbacken er rigtig. {name} er ikke ansvarlig for indirekte tab, og ansvaret er i øvrigt begrænset, så langt dansk ret tillader det."
+          ]
+        },
+        {
+          "title": "Ophør",
+          "body": [
+            "Du kan altid slette din konto. {name} kan lukke en konto, der bryder vilkårene, og kan lukke tjenesten med mindst 30 dages varsel."
+          ]
+        },
+        {
+          "title": "Ændringer og lov",
+          "body": [
+            "Ændres vilkårene, står datoen øverst. Vilkårene følger dansk ret. Spørgsmål kan sendes til {email}."
+          ]
+        }
+      ]
+    },
+    "demoPrivacy": {
+      "title": "Privatlivspolitik",
+      "lead": "Det her er en demo af Jude, som {name} driver. Du kan prøve den uden at give nogen oplysninger om, hvem du er.",
+      "sections": [
+        {
+          "title": "Hvem er ansvarlig",
+          "body": ["{name} er dataansvarlig. {address}", "Spørgsmål kan sendes til {email}."]
+        },
+        {
+          "title": "Hvad der gemmes",
+          "list": [
+            "En midlertidig demokonto uden e-mail eller adgangskode, du kender.",
+            "Det, du skriver om dig selv i profilen, og en ændringslog over den.",
+            "Hvor mange samtaler og ture du har brugt, som tal.",
+            "En cookie, der holder demoen åben."
+          ],
+          "body": [
+            "Samtalerne gemmes ikke: hverken opsætningen, det, du siger, svarene, lyden eller feedbacken. De findes kun i din browser, mens samtalen står på.",
+            "Din IP-adresse bruges kun et øjeblik i serverens hukommelse for at begrænse, hvor mange demoer der startes fra samme sted."
+          ]
+        },
+        {
+          "title": "Kunstig intelligens",
+          "body": [
+            "Det, du siger i en samtale, og den opsætning, du skriver, sendes til Mistral AI, et fransk firma med servere i EU, som omsætter tale til tekst, spiller den anden person, skriver feedbacken og laver stemmen. Mistral gemmer det efter sine egne vilkår i op til 30 dage for at kunne opdage misbrug og bruger det ikke til at træne sine modeller. Jude selv gemmer det ikke."
+          ]
+        },
+        {
+          "title": "Hvor længe",
+          "body": [
+            "Demokontoen og alt, hvad du har skrevet om dig selv, slettes efter 24 timer, eller med det samme, hvis du afslutter demoen. Sikkerhedskopier slettes af sig selv inden for 7 dage."
+          ]
+        },
+        {
+          "title": "Hvis en samtale handler om krise",
+          "body": [
+            "Peger det, du siger, på tanker om selvmord eller vold, stopper Jude samtalen og viser, hvor du kan få hjælp."
+          ]
+        },
+        {
+          "title": "Cookies",
+          "body": [
+            "Kun den ene cookie, der holder demoen åben. Den er nødvendig, og derfor er der ingen cookiebanner."
+          ]
+        },
+        {
+          "title": "Dine rettigheder",
+          "body": [
+            "Du kan hente dine data under Konto og data og afslutte demoen, når du vil. Er du utilfreds, kan du klage til Datatilsynet, datatilsynet.dk. {hostingSentence}"
+          ]
+        }
+      ]
+    },
+    "demoTerms": {
+      "title": "Vilkår",
+      "lead": "Reglerne for demoen af Jude, som {name} driver.",
+      "sections": [
+        {
+          "title": "En demo",
+          "body": [
+            "Demoen er til at prøve Jude. Den er et øvelsesværktøj, ikke terapi eller rådgivning. Den er gratis og leveres, som den er, med et loft over, hvor meget den kan bruges pr. dag."
+          ]
+        },
+        {
+          "title": "God brug",
+          "body": [
+            "Brug kun fornavne og ingen oplysninger, der kan pege på en bestemt person. Forsøg ikke at få Jude til at lave skadeligt indhold eller at omgå loftet. Finder du et sikkerhedshul, så meld det som beskrevet i SECURITY.md på GitHub."
+          ]
+        },
+        {
+          "title": "Koden",
+          "body": [
+            "Jude er open source under licensen AGPL-3.0. Du kan hente koden fra GitHub og køre den selv."
+          ]
+        },
+        {
+          "title": "Lov",
+          "body": ["Vilkårene følger dansk ret. Spørgsmål kan sendes til {email}."]
+        }
+      ]
+    }
+  },
+  "demoVisit": {
+    "label": "Demo",
+    "title": "Prøv Jude",
+    "body": "Øv en svær samtale højt. Jude spiller den anden person og giver dig feedback bagefter. Der skal ikke bruges e-mail eller adgangskode.",
+    "kept": "Jude gemmer intet af det, du siger. Det, du skriver om dig selv, slettes efter {hours} timer.",
+    "start": "Start demoen",
+    "busy": "Der er startet mange demoer herfra lige nu. Prøv igen om et kvarter.",
+    "full": "Demoen er fuld lige nu. Prøv igen senere.",
+    "banner": "Demo · din profil slettes {when}",
+    "bannerSource": "Hent koden",
+    "end": "Afslut demoen",
+    "endQuestion": "Afslut demoen nu?",
+    "endDetail": "Din profil og alt, du har skrevet om dig selv, slettes med det samme. Du kan starte en ny demo bagefter.",
+    "endConfirm": "Afslut og slet",
+    "sourceButton": "Hent koden og kør den selv",
+    "loginButton": "Log ind",
+    "registerButton": "Opret konto",
+    "backToDemo": "Tilbage til demoen"
+  },
+  "nav": {
+    "profile": "Profil",
+    "account": "Konto og data",
+    "conversation": "Til samtalen"
+  },
+  "setup": {
+    "stepOf": "Trin {step} af {total}",
+    "back": "Tilbage",
+    "next": "Næste",
+    "skip": "Spring over",
+    "start": "Start samtalen",
+    "starting": "Starter …",
+    "who": {
+      "title": "Hvem skal du tale med?",
+      "yourRole": "Du er",
+      "yourRoleOther": "Skriv din rolle",
+      "otherRole": "Andet …",
+      "name": "Fornavn",
+      "nameHint": "Kun fornavn, aldrig efternavn.",
+      "age": "Alder",
+      "gender": "Køn",
+      "relation": "{name} er din",
+      "relationFallback": "Personen er din"
+    },
+    "why": {
+      "title": "Hvorfor taler I sammen?",
+      "about": "Hvad handler det om?",
+      "aboutPlaceholder": "Fx at hendes opgaver flyttes til et nyt team",
+      "goal": "Hvad vil du opnå?",
+      "goalPlaceholder": "Fx at hun forstår beslutningen og føler sig hørt",
+      "reaction": "{name} plejer at",
+      "reactionNone": "Ved ikke",
+      "difficulty": "Sværhedsgrad",
+      "privacy": "Skriv ikke noget, der kan pege på en bestemt person, fx efternavn, arbejdsplads eller helbred."
+    },
+    "voice": {
+      "title": "Hvordan skal {name} lyde?",
+      "fits": "Stemmer til {gender} på {age} år står øverst.",
+      "listen": "Hør",
+      "none": "Der er ingen stemmer sat op endnu. {name} svarer med undertekst."
+    },
+    "genders": {
+      "kvinde": "Kvinde",
+      "mand": "Mand",
+      "andet": "Andet"
+    },
+    "gendersLower": {
+      "kvinde": "en kvinde",
+      "mand": "en mand",
+      "andet": "en person"
+    },
+    "relations": {
+      "medarbejder": "Medarbejder",
+      "kollega": "Kollega",
+      "chef": "Chef",
+      "direktør": "Direktør",
+      "kunde": "Kunde",
+      "søn": "Søn",
+      "datter": "Datter",
+      "partner": "Partner",
+      "forælder": "Forælder",
+      "bror": "Bror",
+      "søster": "Søster",
+      "ven": "Ven",
+      "andet": "Andet"
+    },
+    "reactions": {
+      "lukker i": "lukke i",
+      "bliver vred": "blive vred",
+      "skifter emne": "skifte emne",
+      "bliver ked af det": "blive ked af det",
+      "forsvarer sig": "forsvare sig",
+      "er rolig": "være rolig"
+    },
+    "difficulties": {
+      "let": "Let",
+      "middel": "Middel",
+      "svær": "Svær"
+    },
+    "errors": {
+      "invalid": "Noget i opsætningen kan ikke bruges. Brug kun fornavn, og skriv ikke e-mail, telefon- eller CPR-numre."
+    }
+  },
+  "talk": {
+    "minutes": "{used} af {total} minutter",
+    "end": "Afslut",
+    "ready": "Tryk og begynd, når du er klar.",
+    "listening": "Lytter …",
+    "thinking": "{name} tænker …",
+    "start": "Tal",
+    "stop": "Stop og send",
+    "micDenied": "Jude kan ikke bruge mikrofonen. Giv lov i browseren, og prøv igen.",
+    "micMissing": "Der er ingen mikrofon. Jude skal bruge en for at øve samtalen.",
+    "empty": "Jude hørte ikke noget. Prøv igen.",
+    "tooLong": "Det var for langt til én tur. Sig det lidt kortere.",
+    "timeUp": "Tiden er gået.",
+    "turnsUp": "Samtalen har nået sit antal ture."
+  },
+  "feedback": {
+    "label": "Feedback",
+    "title": "Samtalen med {name}",
+    "goal": "Dit mål: {goal}",
+    "scores": {
+      "klarhed": "Klarhed",
+      "empati": "Empati",
+      "lytning": "Lytning",
+      "fasthed": "Fasthed"
+    },
+    "scoreOf": "{value} af 5",
+    "good": "Virkede",
+    "try": "Prøv i stedet",
+    "moments": "Øjeblikke",
+    "notSaved": "Samtalen er ikke gemt. Hent feedbacken, hvis du vil beholde den.",
+    "pdf": "Hent som PDF",
+    "again": "Ny samtale",
+    "loading": "Feedbacken skrives …",
+    "tooShort": "Samtalen var for kort til feedback. Prøv igen, og sig lidt mere.",
+    "close": "Luk"
+  },
+  "crisis": {
+    "title": "Vi stopper samtalen her",
+    "body": "Det, du sagde, er vigtigere end en øvelse. Du skal ikke stå alene med det.",
+    "lifeline": "Livslinien",
+    "lifelineNumber": "70 201 201",
+    "lifelineHint": "Anonym samtale med en frivillig rådgiver.",
+    "emergency": "Ved akut fare",
+    "emergencyNumber": "112",
+    "close": "Afslut"
+  },
+  "limits": {
+    "account": "Du har brugt dagens samtaler. Prøv igen i morgen.",
+    "server": "Jude har nået sit loft for i dag. Prøv igen i morgen."
+  },
+  "profile": {
+    "label": "Profil",
+    "title": "Om dig",
+    "lead": "Det her gemmes, så du ikke skal skrive det hver gang. Det, du siger i samtalerne, gemmes aldrig.",
+    "firstName": "Fornavn",
+    "firstNameHint": "Kun fornavn.",
+    "age": "Alder",
+    "roles": "Dine roller",
+    "rolesHint": "Fx leder, kollega, far, storebror.",
+    "roleLabel": "Rolle",
+    "roleKind": "Hvor",
+    "work": "Arbejde",
+    "private": "Privat",
+    "addRole": "Tilføj rolle",
+    "removeRole": "Fjern {role}",
+    "improve": "Hvad vil du blive bedre til?",
+    "improvePlaceholder": "Fx at holde fast uden at blive hård",
+    "save": "Gem og fortsæt",
+    "saved": "Gemt",
+    "skip": "Spring over"
+  },
+  "consent": {
+    "label": "Før første samtale",
+    "title": "Det, du siger, sendes til Mistral",
+    "sent": "Mistral AI i EU modtager din stemme, det du skriver i opsætningen og hele samtalen. Mistral laver tale om til tekst, spiller den anden og skriver feedbacken. Jude gemmer intet af det.",
+    "sensitive": "Undgå følsomme oplysninger: helbred, sygdom, seksualitet, tro og politik. Det gælder både dig selv og den anden.",
+    "names": "Undgå alt, der kan pege på en bestemt person. Brug kun fornavne og ingen arbejdspladser, adresser eller diagnoser.",
+    "more": "Læs mere i <link>privatlivspolitikken</link>.",
+    "accept": "Ja, jeg forstår og vil fortsætte"
+  }
+}

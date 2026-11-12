@@ -1,0 +1,1114 @@
+<!doctype html>
+<html lang="da">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Jude – skærmretninger</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --paper: #f8f6f2;
+        --beige: #efeae4;
+        --ink: #2f3f44;
+        --slate: #5c6a6f;
+        --line: #c9c1b6;
+        --hair: #e4ded5;
+        --accent: #a88e6e;
+        --white: #fff;
+        --good: #4f7a5a;
+        --watch: #b8862f;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      body {
+        background: var(--paper);
+        color: var(--ink);
+        font:
+          15px/1.5 Inter,
+          system-ui,
+          sans-serif;
+        font-feature-settings: "tnum";
+      }
+      button {
+        font: inherit;
+        color: inherit;
+        cursor: pointer;
+      }
+      .wrap {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 28px 16px 64px;
+      }
+      .eyebrow {
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--accent);
+        font-weight: 600;
+      }
+      h1 {
+        font-weight: 500;
+        font-size: 24px;
+        margin: 6px 0 20px;
+      }
+      .controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+      .seg {
+        display: inline-flex;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--white);
+        padding: 3px;
+      }
+      .seg button {
+        border: 0;
+        background: none;
+        padding: 6px 14px;
+        border-radius: 999px;
+        font-size: 13px;
+        color: var(--slate);
+        min-width: 84px;
+      }
+      .seg button[aria-pressed="true"] {
+        background: var(--ink);
+        color: #fff;
+      }
+      .about {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr 1fr;
+        gap: 20px;
+        border-top: 1px solid var(--hair);
+        border-bottom: 1px solid var(--hair);
+        padding: 14px 0;
+        margin-bottom: 20px;
+        font-size: 13.5px;
+        color: var(--slate);
+      }
+      .about b {
+        display: block;
+        color: var(--ink);
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 2px;
+      }
+      .about .rec {
+        color: var(--accent);
+        font-weight: 600;
+      }
+      .stage {
+        margin: 0 auto;
+        transition: max-width 0.25s ease;
+        max-width: 1180px;
+      }
+      .stage.narrow {
+        max-width: 390px;
+      }
+      .screen {
+        background: var(--white);
+        border: 1px solid var(--hair);
+        border-radius: 16px;
+        min-height: 600px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      /* shared bits */
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        font-size: 12.5px;
+        color: var(--slate);
+      }
+      .field input,
+      .field textarea {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+        padding: 9px 11px;
+        font: inherit;
+        font-size: 14.5px;
+        color: var(--ink);
+        width: 100%;
+      }
+      .field textarea {
+        min-height: 64px;
+        resize: vertical;
+      }
+      .field input:focus,
+      .field textarea:focus,
+      .inline:focus {
+        outline: 2px solid var(--accent);
+        outline-offset: 1px;
+      }
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .chip {
+        border: 1px solid var(--line);
+        background: #fff;
+        border-radius: 999px;
+        padding: 5px 12px;
+        font-size: 13px;
+      }
+      .chip[aria-pressed="true"] {
+        border-color: var(--ink);
+        background: var(--ink);
+        color: #fff;
+      }
+      .btn {
+        border: 1px solid var(--line);
+        background: #fff;
+        border-radius: 8px;
+        padding: 8px 16px;
+        font-size: 14px;
+        min-height: 36px;
+      }
+      .btn.primary {
+        background: var(--ink);
+        border-color: var(--ink);
+        color: #fff;
+      }
+      .btn.link {
+        border: 0;
+        background: none;
+        color: var(--slate);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        padding: 8px 0;
+      }
+      .row-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+      }
+      .muted {
+        color: var(--slate);
+      }
+      .small {
+        font-size: 12.5px;
+      }
+      .voice {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .voice button {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid var(--line);
+        background: #fff;
+        border-radius: 8px;
+        padding: 7px 12px;
+        font-size: 13px;
+      }
+      .voice button[aria-pressed="true"] {
+        border-color: var(--ink);
+        box-shadow: inset 0 0 0 1px var(--ink);
+      }
+      .voice .play {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        border: 1px solid var(--accent);
+        display: grid;
+        place-items: center;
+        font-size: 8px;
+        color: var(--accent);
+      }
+
+      .mic {
+        width: 68px;
+        height: 68px;
+        border-radius: 50%;
+        border: 0;
+        background: var(--ink);
+        color: #fff;
+        display: grid;
+        place-items: center;
+        box-shadow: 0 0 0 6px var(--beige);
+      }
+      .mic svg {
+        width: 26px;
+        height: 26px;
+      }
+      .mic.on {
+        background: var(--accent);
+        box-shadow: 0 0 0 6px #eadfd2;
+      }
+      .wave {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        height: 36px;
+      }
+      .wave i {
+        display: block;
+        width: 3px;
+        height: 6px;
+        border-radius: 2px;
+        background: currentColor;
+        opacity: 0.75;
+      }
+      .wave.live i {
+        animation: wv 1s ease-in-out infinite;
+      }
+      @keyframes wv {
+        0% {
+          height: 6px;
+          opacity: 0.75;
+        }
+        50% {
+          height: 30px;
+          opacity: 0.75;
+        }
+        100% {
+          height: 6px;
+          opacity: 0.75;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .wave.live i {
+          animation: none;
+          height: 18px;
+        }
+        .ring.live {
+          animation: none !important;
+        }
+      }
+
+      .score {
+        display: grid;
+        grid-template-columns: 90px 1fr 64px;
+        align-items: center;
+        gap: 12px;
+        font-size: 14px;
+        padding: 7px 0;
+      }
+      .bar {
+        height: 4px;
+        background: var(--hair);
+        border-radius: 2px;
+        overflow: hidden;
+      }
+      .bar span {
+        display: block;
+        height: 100%;
+        background: var(--ink);
+      }
+      .score em {
+        font-style: normal;
+        color: var(--slate);
+        font-size: 13px;
+        text-align: right;
+      }
+      .quote {
+        font-size: 15px;
+        color: var(--ink);
+      }
+      .tag {
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-weight: 600;
+      }
+      .tag.good {
+        color: var(--good);
+      }
+      .tag.try {
+        color: var(--watch);
+      }
+
+      /* A: rolig scene */
+      .a-setup {
+        max-width: 520px;
+        margin: 0 auto;
+        padding: 56px 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+      }
+      .a-setup h2 {
+        font-weight: 500;
+        font-size: 26px;
+        line-height: 1.25;
+      }
+      .steps {
+        display: flex;
+        gap: 6px;
+      }
+      .steps i {
+        flex: 1;
+        height: 3px;
+        background: var(--hair);
+        border-radius: 2px;
+      }
+      .steps i.on {
+        background: var(--accent);
+      }
+      .grid2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .a-talk {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 600px;
+        padding: 22px 24px 34px;
+        text-align: center;
+      }
+      .a-top {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        font-size: 13px;
+        color: var(--slate);
+      }
+      .ring {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        border: 1px solid var(--line);
+        position: relative;
+      }
+      .ring::after {
+        content: "";
+        position: absolute;
+        inset: -14px;
+        border-radius: 50%;
+        border: 1px solid var(--accent);
+        opacity: 0;
+      }
+      .ring.live::after {
+        animation: pulse 1.6s ease-out infinite;
+      }
+      @keyframes pulse {
+        0% {
+          transform: scale(0.9);
+          opacity: 0.6;
+        }
+        100% {
+          transform: scale(1.15);
+          opacity: 0;
+        }
+      }
+      .ring b {
+        width: 112px;
+        height: 112px;
+        border-radius: 50%;
+        background: var(--beige);
+        display: grid;
+        place-items: center;
+        font-size: 40px;
+        font-weight: 300;
+        color: var(--ink);
+      }
+      .sub {
+        min-height: 96px;
+        max-width: 560px;
+        font-size: 21px;
+        line-height: 1.4;
+        font-weight: 400;
+      }
+      .sub small {
+        display: block;
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--accent);
+        font-weight: 600;
+        margin-bottom: 6px;
+      }
+      .a-fb {
+        max-width: 640px;
+        margin: 0 auto;
+        padding: 44px 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 26px;
+      }
+      .a-fb h2 {
+        font-weight: 500;
+        font-size: 24px;
+      }
+      .moment {
+        border-top: 1px solid var(--hair);
+        padding: 14px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      /* B: kontekst ved siden af */
+      .b-setup {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+        min-height: 600px;
+      }
+      .b-col {
+        padding: 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .b-col + .b-col {
+        border-left: 1px solid var(--hair);
+        background: #fcfbf9;
+      }
+      .b-col h3 {
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--accent);
+        font-weight: 600;
+      }
+      .b-talk {
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        min-height: 600px;
+      }
+      .b-side {
+        background: var(--paper);
+        border-right: 1px solid var(--hair);
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        font-size: 13.5px;
+      }
+      .b-side dt {
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
+        font-weight: 600;
+      }
+      .b-side dd {
+        margin: 2px 0 0;
+      }
+      .b-main {
+        display: flex;
+        flex-direction: column;
+      }
+      .b-log {
+        flex: 1;
+        padding: 24px 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        overflow: auto;
+        max-height: 500px;
+      }
+      .b-line {
+        display: grid;
+        grid-template-columns: 60px 1fr;
+        gap: 12px;
+        font-size: 15px;
+      }
+      .b-line span {
+        font-size: 12px;
+        color: var(--slate);
+        padding-top: 2px;
+      }
+      .b-line.du span {
+        color: var(--accent);
+      }
+      .b-bar {
+        border-top: 1px solid var(--hair);
+        padding: 14px 32px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        color: var(--accent);
+      }
+      .b-bar .mic {
+        width: 52px;
+        height: 52px;
+        box-shadow: none;
+        flex: none;
+      }
+      .b-bar .wave {
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+      }
+      .b-bar > span {
+        white-space: nowrap;
+      }
+      .b-fb {
+        display: grid;
+        grid-template-columns: 1fr 1.3fr;
+        min-height: 600px;
+      }
+      .b-fb > div {
+        padding: 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .b-fb > div + div {
+        border-left: 1px solid var(--hair);
+      }
+
+      /* C: undertekster */
+      .c-setup {
+        max-width: 820px;
+        margin: 0 auto;
+        padding: 56px 28px;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+      }
+      .c-sentence {
+        font-size: 24px;
+        line-height: 1.9;
+        font-weight: 300;
+      }
+      .inline {
+        border: 0;
+        border-bottom: 1px solid var(--accent);
+        background: none;
+        font: inherit;
+        color: var(--ink);
+        font-weight: 500;
+        padding: 0 2px;
+        min-width: 2ch;
+        display: inline-block;
+      }
+      .c-opts {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        border-top: 1px solid var(--hair);
+        padding-top: 22px;
+      }
+      .c-talk {
+        background: var(--ink);
+        color: #f1ece5;
+        min-height: 600px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 22px 28px 34px;
+      }
+      .c-talk .a-top {
+        color: #b9c1c3;
+      }
+      .c-mid {
+        color: var(--accent);
+        display: flex;
+        justify-content: center;
+      }
+      .c-mid .wave {
+        gap: 4px;
+        height: 60px;
+      }
+      .c-mid .wave.live i {
+        animation-name: wv2;
+      }
+      @keyframes wv2 {
+        0% {
+          height: 4px;
+          opacity: 0.9;
+        }
+        50% {
+          height: 56px;
+          opacity: 0.9;
+        }
+        100% {
+          height: 4px;
+          opacity: 0.9;
+        }
+      }
+      .c-sub {
+        text-align: center;
+        font-size: 26px;
+        line-height: 1.4;
+        max-width: 760px;
+        margin: 0 auto;
+        min-height: 110px;
+      }
+      .c-sub small {
+        display: block;
+        font-size: 12px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 8px;
+      }
+      .c-talk .mic {
+        margin: 0 auto;
+        background: #f1ece5;
+        color: var(--ink);
+        box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.08);
+      }
+      .c-talk .mic.on {
+        background: var(--accent);
+        color: #fff;
+      }
+      .c-fb {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 44px 28px;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+      }
+      .c-scores {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+      }
+      .c-scores div {
+        border-top: 1px solid var(--line);
+        padding-top: 10px;
+      }
+      .c-scores b {
+        display: block;
+        font-size: 34px;
+        font-weight: 300;
+        color: var(--accent);
+      }
+      .c-scores b small {
+        font-size: 14px;
+        color: var(--slate);
+      }
+      .c-moment {
+        display: grid;
+        grid-template-columns: 56px 1fr;
+        gap: 14px;
+        border-top: 1px solid var(--hair);
+        padding-top: 14px;
+      }
+      .c-moment .n {
+        font-size: 30px;
+        font-weight: 300;
+        color: var(--accent);
+        line-height: 1;
+      }
+
+      /* narrow stage = mobile layout */
+      .narrow .grid2,
+      .narrow .b-setup,
+      .narrow .b-talk,
+      .narrow .b-fb,
+      .narrow .c-opts {
+        grid-template-columns: 1fr;
+      }
+      .narrow .b-col + .b-col,
+      .narrow .b-fb > div + div {
+        border-left: 0;
+        border-top: 1px solid var(--hair);
+      }
+      .narrow .b-side {
+        border-right: 0;
+        border-bottom: 1px solid var(--hair);
+      }
+      .narrow .b-side dl {
+        display: none;
+      }
+      .narrow .c-scores {
+        grid-template-columns: 1fr 1fr;
+      }
+      .narrow .sub {
+        font-size: 18px;
+      }
+      .narrow .c-sub {
+        font-size: 20px;
+      }
+      .narrow .c-sentence {
+        font-size: 19px;
+      }
+      .narrow .b-log,
+      .narrow .b-col,
+      .narrow .b-fb > div {
+        padding: 20px;
+      }
+      @media (max-width: 760px) {
+        .about {
+          grid-template-columns: 1fr;
+        }
+        .grid2,
+        .b-setup,
+        .b-talk,
+        .b-fb,
+        .c-opts {
+          grid-template-columns: 1fr;
+        }
+        .b-col + .b-col,
+        .b-fb > div + div {
+          border-left: 0;
+          border-top: 1px solid var(--hair);
+        }
+        .b-side dl {
+          display: none;
+        }
+        .c-scores {
+          grid-template-columns: 1fr 1fr;
+        }
+        .sub {
+          font-size: 18px;
+        }
+        .c-sub {
+          font-size: 20px;
+        }
+        .c-sentence {
+          font-size: 19px;
+        }
+        .b-log,
+        .b-col,
+        .b-fb > div {
+          padding: 20px;
+        }
+        .width-toggle {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="eyebrow">Jude · skærmretninger</div>
+      <h1>Tre bud på de tre skærme</h1>
+
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Retning" id="dir">
+          <button data-v="a" aria-pressed="true">A · Rolig scene</button>
+          <button data-v="b" aria-pressed="false">B · Kontekst ved siden af</button>
+          <button data-v="c" aria-pressed="false">C · Undertekster</button>
+        </div>
+        <div class="seg" role="group" aria-label="Skærm" id="scr">
+          <button data-v="setup" aria-pressed="true">Opsætning</button>
+          <button data-v="talk" aria-pressed="false">Samtale</button>
+          <button data-v="fb" aria-pressed="false">Feedback</button>
+        </div>
+        <div class="seg width-toggle" role="group" aria-label="Bredde" id="wid">
+          <button data-v="wide" aria-pressed="true">Computer</button>
+          <button data-v="narrow" aria-pressed="false">Mobil</button>
+        </div>
+      </div>
+
+      <div class="about" id="about"></div>
+      <div class="stage" id="stage"><div class="screen" id="screen"></div></div>
+    </div>
+
+    <script>
+      const MIC =
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>';
+      const wave = (n, live) =>
+        `<div class="wave${live ? " live" : ""}" aria-hidden="true">${Array.from({ length: n }, (_, i) => `<i style="animation-delay:${((i * 73) % 900) / 1000}s"></i>`).join("")}</div>`;
+
+      const ABOUT = {
+        a: {
+          name: "A · Rolig scene",
+          what: "Ét spørgsmål ad gangen i opsætningen. Under samtalen kun den anden person, underteksten og mikrofonen.",
+          pro: "Roligst og bedst på mobil. Intet tager fokus fra samtalen.",
+          con: "Konteksten er skjult under samtalen; man skal huske sit mål selv.",
+          rec: true,
+        },
+        b: {
+          name: "B · Kontekst ved siden af",
+          what: "Opsætning på én side. Under samtalen står hvem, hvorfor og dit mål til venstre, og det sagte løber som tekst til højre.",
+          pro: "Man ser hele tiden sit mål og kan læse det sagte igen.",
+          con: "Ligner mere et værktøj end en samtale, og teksten trækker blikket fra at lytte.",
+        },
+        c: {
+          name: "C · Undertekster",
+          what: "Opsætningen er en sætning, man udfylder. Samtalen er mørk som en film med en bred lydbølge og store undertekster.",
+          pro: "Mest eget udtryk; sætningen gør opsætningen hurtig og naturlig.",
+          con: "Den mørke samtale skifter stemning brat, og sætningen er svær at udvide med flere felter.",
+        },
+      };
+
+      const LINES = [
+        ["du", "Tak fordi du har tid, Lone. Jeg vil gerne tale om den nye teamstruktur."],
+        ["lone", "Det lyder ikke godt. Er det mig, der skal flyttes?"],
+        ["du", "Dine kontraktopgaver flytter til det nye team fra januar."],
+        ["lone", "Jeg har lavet det arbejde i tolv år. Hvorfor hører jeg det først nu?"],
+        ["du", "Det forstår jeg godt, at du spørger om. Hvad tænker du lige nu?"],
+        ["lone", "At ingen spurgte mig. Men okay. Hvad skal jeg så lave?"],
+      ];
+      const SCORES = [
+        ["Klarhed", 4],
+        ["Empati", 3],
+        ["Lytning", 4],
+        ["Fasthed", 3],
+      ];
+      const MOMENTS = [
+        [
+          "good",
+          "Virkede",
+          "“Dine kontraktopgaver flytter til det nye team fra januar.”",
+          "Klart og konkret, uden at pakke beskeden ind.",
+        ],
+        [
+          "good",
+          "Virkede",
+          "“Det forstår jeg godt, at du spørger om. Hvad tænker du lige nu?”",
+          "Du gav plads i stedet for at forsvare beslutningen.",
+        ],
+        [
+          "try",
+          "Prøv i stedet",
+          "“Jeg vil gerne tale om den nye teamstruktur.”",
+          "Sig, at det er en svær besked, før Lone selv skal gætte det.",
+        ],
+      ];
+
+      let state = {
+        dir: "a",
+        scr: "setup",
+        wid: "wide",
+        step: 0,
+        line: -1,
+        timer: null,
+        mic: false,
+        lone: false,
+      };
+
+      /* ---------- shared pieces ---------- */
+      const voices = (sel) =>
+        `<div class="field">Stemme til Lone<div class="voice">${["Rolig", "Varm", "Skarp"].map((v, i) => `<button aria-pressed="${i === sel}" data-voice><span class="play">▶</span>Kvinde, 50–60 år · ${v}</button>`).join("")}</div></div>`;
+      const chips = (list, on) =>
+        `<div class="chips">${list.map((c) => `<button class="chip" aria-pressed="${c === on}">${c}</button>`).join("")}</div>`;
+      const scores = () =>
+        SCORES.map(
+          ([k, v]) =>
+            `<div class="score"><span>${k}</span><div class="bar"><span style="width:${v * 20}%"></span></div><em>${v} af 5</em></div>`,
+        ).join("");
+      const fbActions = `<div class="row-actions"><button class="btn">Hent som PDF</button><button class="btn primary" data-go="setup">Ny samtale</button></div>`;
+      const current = () => (state.line < 0 ? null : LINES[state.line]);
+
+      /* ---------- A ---------- */
+      const A_STEPS = [
+        {
+          q: "Hvem er du i samtalen?",
+          body: `<div class="field">Din rolle${chips(["Leder", "Kollega", "Medarbejder", "Far", "Storebror", "Partner"], "Leder")}</div><div class="field">Hvad vil du blive bedre til?<input value="At holde fast uden at blive hård"></div>`,
+        },
+        {
+          q: "Hvem skal du tale med?",
+          body: `<div class="grid2"><div class="field">Fornavn<input value="Lone"></div><div class="field">Alder<input value="58"></div></div><div class="field">Køn${chips(["Kvinde", "Mand", "Andet"], "Kvinde")}</div><div class="field">Relation${chips(["Medarbejder", "Kollega", "Chef", "Søn", "Datter", "Partner", "Forælder", "Ven"], "Medarbejder")}</div>`,
+        },
+        {
+          q: "Hvorfor skal I tale sammen?",
+          body: `<div class="field">Hvad handler det om?<textarea>Hendes kontraktopgaver flyttes til et nyt team fra januar.</textarea></div><div class="field">Hvad vil du gerne opnå?<input value="At hun forstår beslutningen og føler sig hørt"></div><div class="field">Hvordan reagerer Lone typisk?${chips(["Bliver vred", "Lukker i", "Skifter emne", "Bliver ked af det"], "Lukker i")}</div>`,
+        },
+        {
+          q: "Hvordan skal Lone lyde?",
+          body: `${voices(0)}<div class="field">Sværhedsgrad${chips(["Samarbejdsvillig", "Modstræbende", "Svær"], "Modstræbende")}</div>`,
+        },
+      ];
+      function aSetup() {
+        const s = A_STEPS[state.step];
+        return `<div class="a-setup">
+    <div class="steps">${A_STEPS.map((_, i) => `<i class="${i <= state.step ? "on" : ""}"></i>`).join("")}</div>
+    <div class="small muted">Trin ${state.step + 1} af ${A_STEPS.length}</div>
+    <h2>${s.q}</h2>${s.body}
+    <div class="row-actions">${state.step ? '<button class="btn" data-step="-1">Tilbage</button>' : '<button class="btn link" data-skip>Spring konteksten over</button>'}
+    ${state.step < A_STEPS.length - 1 ? '<button class="btn primary" data-step="1">Næste</button>' : '<button class="btn primary" data-go="talk">Start samtalen</button>'}</div></div>`;
+      }
+      function aTalk() {
+        const c = current(),
+          lone = c && c[0] === "lone";
+        return `<div class="a-talk">
+    <div class="a-top"><span>4 af 15 minutter</span><button class="btn link" data-go="fb">Afslut samtale</button></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:14px">
+      <div class="ring${state.lone ? " live" : ""}"><b>L</b></div>
+      <div><div style="font-weight:500">Lone, 58</div><div class="small muted">Din medarbejder</div></div>
+    </div>
+    <div class="sub" aria-live="polite">${c ? `<small>${lone ? "Lone" : "Dig"}</small>${c[1]}` : '<span class="muted" style="font-size:16px">Tryk på mikrofonen og begynd, når du er klar.</span>'}</div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
+      <button class="mic${state.mic ? " on" : ""}" data-mic aria-label="Tal">${MIC}</button>
+      <span class="small muted">${state.mic ? "Jude lytter …" : "Tryk for at tale"}</span>
+    </div></div>`;
+      }
+      function aFb() {
+        return `<div class="a-fb">
+    <div><div class="eyebrow">Feedback</div><h2>Samtalen med Lone</h2><div class="small muted">Dit mål: at hun forstår beslutningen og føler sig hørt</div></div>
+    <div>${scores()}</div>
+    <div><div class="eyebrow" style="margin-bottom:6px">Tre øjeblikke</div>
+    ${MOMENTS.map((m) => `<div class="moment"><span class="tag ${m[0]}">${m[1]}</span><span class="quote">${m[2]}</span><span class="small muted">${m[3]}</span></div>`).join("")}</div>
+    <div class="small muted">Samtalen er ikke gemt. Hent feedbacken, hvis du vil beholde den.</div>
+    ${fbActions}</div>`;
+      }
+
+      /* ---------- B ---------- */
+      function bSetup() {
+        return `<div class="b-setup">
+    <div class="b-col"><h3>Dig og den anden</h3>
+      <div class="field">Din rolle${chips(["Leder", "Kollega", "Far", "Storebror"], "Leder")}</div>
+      <div class="grid2"><div class="field">Fornavn<input value="Lone"></div><div class="field">Alder<input value="58"></div></div>
+      <div class="field">Køn${chips(["Kvinde", "Mand", "Andet"], "Kvinde")}</div>
+      <div class="field">Relation${chips(["Medarbejder", "Kollega", "Chef", "Søn", "Datter", "Partner"], "Medarbejder")}</div>
+      ${voices(0)}
+    </div>
+    <div class="b-col"><h3>Mødet <span class="muted" style="text-transform:none;letter-spacing:0;font-weight:400">· kan springes over</span></h3>
+      <div class="field">Hvad handler det om?<textarea>Hendes kontraktopgaver flyttes til et nyt team fra januar.</textarea></div>
+      <div class="field">Hvad vil du gerne opnå?<input value="At hun forstår beslutningen og føler sig hørt"></div>
+      <div class="field">Hvordan reagerer Lone typisk?${chips(["Bliver vred", "Lukker i", "Skifter emne", "Bliver ked af det"], "Lukker i")}</div>
+      <div class="field">Sværhedsgrad${chips(["Samarbejdsvillig", "Modstræbende", "Svær"], "Modstræbende")}</div>
+      <div style="flex:1"></div>
+      <div class="row-actions"><span></span><button class="btn primary" data-go="talk">Start samtalen</button></div>
+    </div></div>`;
+      }
+      function bTalk() {
+        const shown = LINES.slice(0, state.line + 1);
+        return `<div class="b-talk">
+    <aside class="b-side"><div><div style="font-weight:500;font-size:15px">Lone, 58</div><div class="muted">Din medarbejder · Modstræbende</div></div>
+      <dl><dt>Det handler om</dt><dd>Hendes kontraktopgaver flyttes til et nyt team fra januar.</dd></dl>
+      <dl><dt>Dit mål</dt><dd>At hun forstår beslutningen og føler sig hørt</dd></dl>
+      <dl><dt>Du øver</dt><dd>At holde fast uden at blive hård</dd></dl>
+      <div style="flex:1"></div><div class="row-actions small"><span class="muted">4 af 15 minutter</span><button class="btn link" data-go="fb">Afslut</button></div>
+    </aside>
+    <div class="b-main"><div class="b-log" aria-live="polite">${shown.length ? shown.map((l) => `<div class="b-line ${l[0]}"><span>${l[0] === "du" ? "Dig" : "Lone"}</span><div>${l[1]}</div></div>`).join("") : '<div class="muted">Tryk på mikrofonen og begynd, når du er klar.</div>'}</div>
+      <div class="b-bar"><button class="mic${state.mic ? " on" : ""}" data-mic aria-label="Tal">${MIC}</button>${wave(28, state.mic || state.lone)}<span class="small muted">${state.mic ? "Jude lytter …" : "Tryk for at tale"}</span></div>
+    </div></div>`;
+      }
+      function bFb() {
+        return `<div class="b-fb">
+    <div><div class="eyebrow">Feedback</div><h2 style="font-weight:500;font-size:22px">Samtalen med Lone</h2><div class="small muted">Dit mål: at hun forstår beslutningen og føler sig hørt</div><div>${scores()}</div><div style="flex:1"></div>${fbActions}</div>
+    <div><div class="eyebrow">Samtalen med tre øjeblikke markeret</div>
+      ${LINES.map((l) => {
+        const m = MOMENTS.find((x) => x[2].includes(l[1]));
+        return `<div class="b-line ${l[0]}"${m ? ` style="border-left:2px solid ${m[0] === "good" ? "var(--good)" : "var(--watch)"};padding-left:10px;margin-left:-12px"` : ""}><span>${l[0] === "du" ? "Dig" : "Lone"}</span><div>${l[1]}${m ? `<div class="small" style="margin-top:4px"><span class="tag ${m[0]}">${m[1]}</span> <span class="muted">${m[3]}</span></div>` : ""}</div></div>`;
+      }).join("")}
+      <div class="small muted">Samtalen vises kun nu og er ikke gemt.</div></div></div>`;
+      }
+
+      /* ---------- C ---------- */
+      const inl = (v, w) =>
+        `<span class="inline" contenteditable="true" spellcheck="false" style="min-width:${w || 4}ch">${v}</span>`;
+      function cSetup() {
+        return `<div class="c-setup"><div class="eyebrow">Ny samtale</div>
+    <p class="c-sentence">Jeg er ${inl("leder")} og skal tale med ${inl("Lone")}, ${inl("58")} år, min ${inl("medarbejder")}.
+    Det handler om, at ${inl("hendes kontraktopgaver flyttes til et nyt team fra januar")}.
+    Jeg vil gerne, at ${inl("hun forstår beslutningen og føler sig hørt")}.
+    Lone plejer at ${inl("lukke i")}.</p>
+    <div class="c-opts">${voices(0)}<div class="field">Sværhedsgrad${chips(["Samarbejdsvillig", "Modstræbende", "Svær"], "Modstræbende")}</div></div>
+    <div class="row-actions"><button class="btn link" data-skip>Kun hvem, uden kontekst</button><button class="btn primary" data-go="talk">Start samtalen</button></div></div>`;
+      }
+      function cTalk() {
+        const c = current(),
+          lone = c && c[0] === "lone";
+        return `<div class="c-talk">
+    <div class="a-top"><span>Lone, 58 · din medarbejder</span><span>4 af 15 minutter · <button class="btn link" style="color:#B9C1C3" data-go="fb">Afslut</button></span></div>
+    <div class="c-mid">${wave(56, state.mic || state.lone)}</div>
+    <div class="c-sub" aria-live="polite">${c ? `<small>${lone ? "Lone" : "Dig"}</small>${c[1]}` : '<span style="font-size:17px;color:#B9C1C3">Tryk på mikrofonen og begynd, når du er klar.</span>'}</div>
+    <button class="mic${state.mic ? " on" : ""}" data-mic aria-label="Tal">${MIC}</button></div>`;
+      }
+      function cFb() {
+        return `<div class="c-fb"><div><div class="eyebrow">Feedback</div><h2 style="font-weight:500;font-size:26px">Samtalen med Lone</h2><div class="small muted">Dit mål: at hun forstår beslutningen og føler sig hørt</div></div>
+    <div class="c-scores">${SCORES.map(([k, v]) => `<div><b>${v}<small> af 5</small></b><span class="small">${k}</span></div>`).join("")}</div>
+    <div style="display:flex;flex-direction:column;gap:16px">${MOMENTS.map((m, i) => `<div class="c-moment"><span class="n">0${i + 1}</span><div><span class="tag ${m[0]}">${m[1]}</span><div class="quote">${m[2]}</div><div class="small muted">${m[3]}</div></div></div>`).join("")}</div>
+    <div class="small muted">Samtalen er ikke gemt. Hent feedbacken, hvis du vil beholde den.</div>${fbActions}</div>`;
+      }
+
+      const VIEWS = {
+        a: { setup: aSetup, talk: aTalk, fb: aFb },
+        b: { setup: bSetup, talk: bTalk, fb: bFb },
+        c: { setup: cSetup, talk: cTalk, fb: cFb },
+      };
+
+      function render() {
+        const a = ABOUT[state.dir];
+        document.getElementById("about").innerHTML =
+          `<div><b>${a.name}${a.rec ? ' <span class="rec">· anbefalet</span>' : ""}</b>${a.what}</div><div><b>Fordel</b>${a.pro}</div><div><b>Ulempe</b>${a.con}</div>`;
+        document.getElementById("screen").innerHTML = VIEWS[state.dir][state.scr]();
+        document.getElementById("stage").classList.toggle("narrow", state.wid === "narrow");
+        for (const [id, key] of [
+          ["dir", "dir"],
+          ["scr", "scr"],
+          ["wid", "wid"],
+        ])
+          document
+            .querySelectorAll("#" + id + " button")
+            .forEach((b) => b.setAttribute("aria-pressed", b.dataset.v === state[key]));
+      }
+      function go(scr) {
+        clearTimeout(state.timer);
+        state.scr = scr;
+        state.line = -1;
+        state.mic = false;
+        state.lone = false;
+        state.step = 0;
+        render();
+      }
+
+      document.addEventListener("click", (e) => {
+        const t = e.target.closest("button");
+        if (!t) return;
+        const seg = t.closest(".seg");
+        if (seg) {
+          const k = seg.id;
+          if (k === "dir") {
+            state.dir = t.dataset.v;
+            go(state.scr);
+          } else if (k === "scr") {
+            go(t.dataset.v);
+          } else {
+            state.wid = t.dataset.v;
+            render();
+          }
+          return;
+        }
+        if (t.dataset.go) {
+          go(t.dataset.go);
+          return;
+        }
+        if (t.dataset.step) {
+          state.step += +t.dataset.step;
+          render();
+          return;
+        }
+        if ("skip" in t.dataset) {
+          go("talk");
+          return;
+        }
+        if ("mic" in t.dataset) {
+          if (state.mic || state.lone || state.line >= LINES.length - 1) return;
+          state.mic = true;
+          state.line += 1;
+          render();
+          state.timer = setTimeout(() => {
+            state.mic = false;
+            state.lone = true;
+            state.line += 1;
+            render();
+            state.timer = setTimeout(() => {
+              state.lone = false;
+              render();
+            }, 2600);
+          }, 1600);
+          return;
+        }
+        if (t.classList.contains("chip") || "voice" in t.dataset) {
+          t.parentElement
+            .querySelectorAll("button")
+            .forEach((b) => b.setAttribute("aria-pressed", b === t));
+        }
+      });
+      render();
+    </script>
+  </body>
+</html>

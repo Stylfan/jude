@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+/*
+ * Jude's visual identity (design/jude-enkel.html): warm paper, white
+ * fields with thin lines, ink and slate for text, the sand accent used
+ * sparingly. Green for "Virkede", amber for "Prøv i stedet", red only for
+ * deleting. Calm: motion only where it explains something, and none when
+ * the system asks for reduced motion.
+ */
+@theme {
+  --font-sans: var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --color-paper: #f8f6f2;
+  --color-surface: #ffffff;
+  --color-sand: #efeae4;
+  --color-ink: #2f3f44;
+  --color-ink-soft: #3f5258;
+  --color-slate: #5c6a6f;
+  --color-line: #c9c1b6;
+  --color-hairline: #dcd5cb;
+  --color-hairline-soft: #e8e3dc;
+  --color-bronze: #a88e6e;
+  --color-bronze-deep: #7d6748;
+  --color-success: #4f7a5a;
+  --color-warning: #b8862f;
+  --color-danger: #a8483f;
+  --color-success-soft: #e7f0e4;
+  --color-warning-soft: #f8eedb;
+  --color-danger-soft: #f6e3e0;
+}
+
+@layer base {
+  html {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-feature-settings: "cv11", "ss01";
+    font-variant-numeric: tabular-nums;
+  }
+
+  body {
+    min-height: 100dvh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-bronze);
+    outline-offset: 2px;
+  }
+
+  @media print {
+    html,
+    body {
+      background: white;
+    }
+    @page {
+      size: A4 portrait;
+      margin: 16mm;
+    }
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* The ring around the other person while they speak. */
+@keyframes jude-pulse {
+  0% {
+    transform: scale(0.92);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1.18);
+    opacity: 0;
+  }
+}
+
+.jude-ring::after {
+  content: "";
+  position: absolute;
+  inset: -12px;
+  border-radius: 9999px;
+  border: 1px solid var(--color-bronze);
+  opacity: 0;
+}
+
+.jude-ring[data-speaking="true"]::after {
+  animation: jude-pulse 1.6s ease-out infinite;
+}
+
+/* Listening: the microphone breathes slowly. */
+@keyframes jude-breathe {
+  0% {
+    box-shadow: 0 0 0 0 rgb(168 142 110 / 0.45);
+  }
+  100% {
+    box-shadow: 0 0 0 14px rgb(168 142 110 / 0);
+  }
+}
+
+.jude-mic[data-listening="true"] {
+  animation: jude-breathe 1.4s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jude-ring[data-speaking="true"]::after {
+    animation: none;
+    opacity: 0.6;
+    transform: scale(1.08);
+  }
+  .jude-mic[data-listening="true"] {
+    animation: none;
+    box-shadow: 0 0 0 6px rgb(168 142 110 / 0.3);
+  }
+}

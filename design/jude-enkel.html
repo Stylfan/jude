@@ -1,0 +1,601 @@
+<!doctype html>
+<html lang="da">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Jude – enkel retning</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --paper: #f8f6f2;
+        --beige: #efeae4;
+        --ink: #2f3f44;
+        --slate: #5c6a6f;
+        --line: #c9c1b6;
+        --hair: #e4ded5;
+        --accent: #a88e6e;
+        --good: #4f7a5a;
+        --watch: #b8862f;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      body {
+        background: #ece8e2;
+        color: var(--ink);
+        font:
+          15px/1.5 Inter,
+          system-ui,
+          sans-serif;
+        font-feature-settings: "tnum";
+      }
+      button,
+      select,
+      input,
+      textarea {
+        font: inherit;
+        color: inherit;
+      }
+      button {
+        cursor: pointer;
+      }
+      .bar {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        padding: 18px 16px;
+      }
+      .seg {
+        display: inline-flex;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: #fff;
+        padding: 3px;
+      }
+      .seg button {
+        border: 0;
+        background: none;
+        padding: 6px 14px;
+        border-radius: 999px;
+        font-size: 13px;
+        color: var(--slate);
+        min-width: 88px;
+      }
+      .seg button[aria-pressed="true"] {
+        background: var(--ink);
+        color: #fff;
+      }
+      .device {
+        margin: 0 auto 48px;
+        background: var(--paper);
+        border-radius: 28px;
+        overflow: hidden;
+        box-shadow:
+          0 1px 0 var(--hair),
+          0 20px 50px -30px rgba(47, 63, 68, 0.35);
+        transition: max-width 0.25s ease;
+      }
+      .device.phone {
+        max-width: 390px;
+        height: 780px;
+      }
+      .device.desk {
+        max-width: 1100px;
+        height: 680px;
+        border-radius: 14px;
+      }
+      @media (max-width: 420px) {
+        .device.phone {
+          border-radius: 0;
+          height: auto;
+          min-height: 100vh;
+        }
+        .bar .w {
+          display: none;
+        }
+      }
+      .app {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 20px 24px 28px;
+        max-width: 560px;
+        margin: 0 auto;
+      }
+      .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 32px;
+        font-size: 13px;
+        color: var(--slate);
+      }
+      .quiet {
+        border: 0;
+        background: none;
+        color: var(--slate);
+        font-size: 13px;
+        padding: 6px 0;
+      }
+      .back {
+        font-size: 18px;
+        line-height: 1;
+      }
+      .progress {
+        display: flex;
+        gap: 6px;
+        width: 72px;
+      }
+      .progress i {
+        flex: 1;
+        height: 2px;
+        background: var(--hair);
+      }
+      .progress i.on {
+        background: var(--accent);
+      }
+      h2 {
+        font-weight: 400;
+        font-size: 26px;
+        line-height: 1.25;
+        margin: 28px 0 22px;
+      }
+      .form {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        flex: 1;
+      }
+      label {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        font-size: 12.5px;
+        color: var(--slate);
+      }
+      input,
+      select,
+      textarea {
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: #fff;
+        padding: 10px 12px;
+        font-size: 15px;
+        width: 100%;
+        appearance: none;
+      }
+      textarea {
+        min-height: 72px;
+        resize: none;
+      }
+      select {
+        background: #fff
+          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%235C6A6F' stroke-width='1.4'/%3E%3C/svg%3E")
+          no-repeat right 12px center;
+      }
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: 2px solid var(--accent);
+        outline-offset: 1px;
+      }
+      .two {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .tri {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        overflow: hidden;
+        background: #fff;
+      }
+      .tri button {
+        border: 0;
+        background: none;
+        padding: 10px 4px;
+        font-size: 13.5px;
+      }
+      .tri button + button {
+        border-left: 1px solid var(--line);
+      }
+      .tri button[aria-pressed="true"] {
+        background: var(--ink);
+        color: #fff;
+      }
+      .voice {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: #fff;
+        overflow: hidden;
+      }
+      .voice button {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        border: 0;
+        background: none;
+        padding: 12px 14px;
+        text-align: left;
+        font-size: 14.5px;
+      }
+      .voice button + button {
+        border-top: 1px solid var(--hair);
+      }
+      .voice .dot {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        border: 1px solid var(--line);
+        flex: none;
+      }
+      .voice button[aria-pressed="true"] .dot {
+        border: 5px solid var(--ink);
+      }
+      .voice small {
+        margin-left: auto;
+        color: var(--accent);
+        font-size: 12px;
+      }
+      .primary {
+        border: 0;
+        background: var(--ink);
+        color: #fff;
+        border-radius: 12px;
+        padding: 14px;
+        font-size: 15px;
+        width: 100%;
+      }
+      .foot {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        margin-top: 16px;
+      }
+
+      /* talk */
+      .talk {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        text-align: center;
+        padding-top: 24px;
+      }
+      .who {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+      }
+      .ring {
+        width: 132px;
+        height: 132px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        position: relative;
+      }
+      .ring::after {
+        content: "";
+        position: absolute;
+        inset: -12px;
+        border-radius: 50%;
+        border: 1px solid var(--accent);
+        opacity: 0;
+      }
+      .ring.live::after {
+        animation: pulse 1.6s ease-out infinite;
+      }
+      @keyframes pulse {
+        0% {
+          transform: scale(0.9);
+          opacity: 0.6;
+        }
+        100% {
+          transform: scale(1.18);
+          opacity: 0;
+        }
+      }
+      .ring b {
+        width: 112px;
+        height: 112px;
+        border-radius: 50%;
+        background: var(--beige);
+        display: grid;
+        place-items: center;
+        font-size: 38px;
+        font-weight: 300;
+      }
+      .sub {
+        min-height: 120px;
+        font-size: 20px;
+        line-height: 1.45;
+        max-width: 480px;
+        display: flex;
+        align-items: center;
+      }
+      .desk .sub {
+        font-size: 24px;
+        max-width: 640px;
+      }
+      .mic {
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        border: 0;
+        background: var(--ink);
+        color: #fff;
+        display: grid;
+        place-items: center;
+        transition: background 0.2s;
+      }
+      .mic.on {
+        background: var(--accent);
+      }
+      .mic svg {
+        width: 26px;
+        height: 26px;
+      }
+      .hint {
+        font-size: 12.5px;
+        color: var(--slate);
+        min-height: 19px;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .ring.live::after {
+          animation: none;
+          opacity: 0.6;
+        }
+      }
+
+      /* feedback */
+      .fb {
+        flex: 1;
+        overflow: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        padding-top: 12px;
+      }
+      .eyebrow {
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--accent);
+        font-weight: 600;
+      }
+      .fb h2 {
+        margin: 4px 0 2px;
+      }
+      .score {
+        display: grid;
+        grid-template-columns: 82px 1fr 52px;
+        gap: 12px;
+        align-items: center;
+        padding: 6px 0;
+        font-size: 14px;
+      }
+      .meter {
+        height: 3px;
+        background: var(--hair);
+      }
+      .meter span {
+        display: block;
+        height: 100%;
+        background: var(--ink);
+      }
+      .score em {
+        font-style: normal;
+        font-size: 13px;
+        color: var(--slate);
+        text-align: right;
+      }
+      .moment {
+        border-top: 1px solid var(--hair);
+        padding: 14px 0 2px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .tag {
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-weight: 600;
+      }
+      .good {
+        color: var(--good);
+      }
+      .try {
+        color: var(--watch);
+      }
+      .muted {
+        color: var(--slate);
+        font-size: 13px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bar">
+      <div class="seg" id="scr" role="group" aria-label="Skærm">
+        <button data-v="setup" aria-pressed="true">Opsætning</button>
+        <button data-v="talk" aria-pressed="false">Samtale</button>
+        <button data-v="fb" aria-pressed="false">Feedback</button>
+      </div>
+      <div class="seg w" id="wid" role="group" aria-label="Bredde">
+        <button data-v="phone" aria-pressed="true">Telefon</button>
+        <button data-v="desk" aria-pressed="false">Computer</button>
+      </div>
+    </div>
+    <div class="device phone" id="device"><div class="app" id="app"></div></div>
+
+    <script>
+      const MIC =
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>';
+      const LINES = [
+        ["Dig", "Tak fordi du har tid, Lone. Jeg vil gerne tale om den nye teamstruktur."],
+        ["Lone", "Det lyder ikke godt. Er det mig, der skal flyttes?"],
+        ["Dig", "Dine kontraktopgaver flytter til det nye team fra januar."],
+        ["Lone", "Jeg har lavet det arbejde i tolv år. Hvorfor hører jeg det først nu?"],
+        ["Dig", "Det forstår jeg godt, at du spørger om. Hvad tænker du lige nu?"],
+        ["Lone", "At ingen spurgte mig. Men okay. Hvad skal jeg så lave?"],
+      ];
+      const S = { scr: "setup", wid: "phone", step: 0, line: -1, mic: false, lone: false, t: null };
+      const tri = (a, on) =>
+        `<div class="tri">${a.map((x) => `<button aria-pressed="${x === on}">${x}</button>`).join("")}</div>`;
+      const opts = (a, on) =>
+        a.map((x) => `<option${x === on ? " selected" : ""}>${x}</option>`).join("");
+
+      const STEPS = [
+        {
+          q: "Hvem skal du tale med?",
+          f: `
+   <label>Du er<select>${opts(["Leder", "Kollega", "Far", "Storebror"], "Leder")}</select></label>
+   <label>Fornavn<input value="Lone"></label>
+   <div class="two"><label>Alder<input value="58" inputmode="numeric"></label><label>Køn<select>${opts(["Kvinde", "Mand", "Andet"], "Kvinde")}</select></label></div>
+   <label>Lone er din<select>${opts(["Medarbejder", "Kollega", "Chef", "Søn", "Datter", "Partner", "Forælder", "Ven"], "Medarbejder")}</select></label>`,
+        },
+        {
+          q: "Hvorfor taler I sammen?",
+          skip: true,
+          f: `
+   <label>Hvad handler det om?<textarea>Hendes kontraktopgaver flyttes til et nyt team fra januar.</textarea></label>
+   <label>Hvad vil du opnå?<input value="At hun forstår beslutningen og føler sig hørt"></label>
+   <label>Lone plejer at<select>${opts(["lukke i", "blive vred", "skifte emne", "blive ked af det"], "lukke i")}</select></label>
+   <label>Sværhedsgrad${tri(["Let", "Middel", "Svær"], "Middel")}</label>`,
+        },
+        {
+          q: "Hvordan skal Lone lyde?",
+          f: `
+   <div class="voice">${["Rolig", "Varm", "Skarp"].map((v, i) => `<button aria-pressed="${i === 0}"><span class="dot"></span>${v}<small>▶ Hør</small></button>`).join("")}</div>
+   <div class="muted">Stemmer til en kvinde på 50–60 år.</div>`,
+        },
+      ];
+
+      function setup() {
+        const s = STEPS[S.step],
+          last = S.step === STEPS.length - 1;
+        return `<div class="top">${S.step ? '<button class="quiet back" data-step="-1" aria-label="Tilbage">←</button>' : "<span></span>"}
+    <div class="progress" aria-label="Trin ${S.step + 1} af ${STEPS.length}">${STEPS.map((_, i) => `<i class="${i <= S.step ? "on" : ""}"></i>`).join("")}</div></div>
+    <h2>${s.q}</h2><div class="form">${s.f}</div>
+    <div class="foot"><button class="primary" ${last ? 'data-go="talk"' : 'data-step="1"'}>${last ? "Start samtalen" : "Næste"}</button>
+    ${s.skip ? '<button class="quiet" data-step="1">Spring over</button>' : '<span class="hint"></span>'}</div>`;
+      }
+      function talk() {
+        const c = S.line < 0 ? null : LINES[S.line];
+        return `<div class="top"><span>4 af 15 minutter</span><button class="quiet" data-go="fb">Afslut</button></div>
+   <div class="talk">
+    <div class="who"><div class="ring${S.lone ? " live" : ""}"><b>L</b></div><div>Lone</div></div>
+    <div class="sub" aria-live="polite">${c ? c[1] : '<span class="muted" style="font-size:15px">Tryk og begynd, når du er klar.</span>'}</div>
+    <div class="who" style="gap:10px"><button class="mic${S.mic ? " on" : ""}" data-mic aria-label="Tal">${MIC}</button><span class="hint">${S.mic ? "Lytter …" : ""}</span></div>
+   </div>`;
+      }
+      const SC = [
+        ["Klarhed", 4],
+        ["Empati", 3],
+        ["Lytning", 4],
+        ["Fasthed", 3],
+      ];
+      const MO = [
+        [
+          "good",
+          "Virkede",
+          "“Dine kontraktopgaver flytter til det nye team fra januar.”",
+          "Klart og konkret, uden at pakke beskeden ind.",
+        ],
+        [
+          "good",
+          "Virkede",
+          "“Det forstår jeg godt, at du spørger om. Hvad tænker du lige nu?”",
+          "Du gav plads i stedet for at forsvare beslutningen.",
+        ],
+        [
+          "try",
+          "Prøv i stedet",
+          "“Jeg vil gerne tale om den nye teamstruktur.”",
+          "Sig, at det er en svær besked, før Lone selv skal gætte det.",
+        ],
+      ];
+      function fb() {
+        return `<div class="top"><span></span><button class="quiet" data-go="setup" aria-label="Luk">✕</button></div>
+  <div class="fb">
+   <div><div class="eyebrow">Feedback</div><h2>Samtalen med Lone</h2><div class="muted">Dit mål: at hun forstår beslutningen og føler sig hørt</div></div>
+   <div>${SC.map(([k, v]) => `<div class="score"><span>${k}</span><div class="meter"><span style="width:${v * 20}%"></span></div><em>${v} af 5</em></div>`).join("")}</div>
+   <div>${MO.map((m) => `<div class="moment"><span class="tag ${m[0]}">${m[1]}</span><span>${m[2]}</span><span class="muted">${m[3]}</span></div>`).join("")}</div>
+  </div>
+  <div class="foot"><button class="primary" data-go="setup">Ny samtale</button><button class="quiet">Hent som PDF · samtalen er ikke gemt</button></div>`;
+      }
+      const V = { setup, talk, fb };
+      function render() {
+        document.getElementById("app").innerHTML = V[S.scr]();
+        document.getElementById("device").className = "device " + S.wid;
+        document
+          .querySelectorAll("#scr button")
+          .forEach((b) => b.setAttribute("aria-pressed", b.dataset.v === S.scr));
+        document
+          .querySelectorAll("#wid button")
+          .forEach((b) => b.setAttribute("aria-pressed", b.dataset.v === S.wid));
+      }
+      function go(s) {
+        clearTimeout(S.t);
+        Object.assign(S, { scr: s, step: 0, line: -1, mic: false, lone: false });
+        render();
+      }
+      document.addEventListener("click", (e) => {
+        const b = e.target.closest("button");
+        if (!b) return;
+        const seg = b.closest(".seg");
+        if (seg) {
+          seg.id === "scr" ? go(b.dataset.v) : ((S.wid = b.dataset.v), render());
+          return;
+        }
+        if (b.dataset.go) {
+          go(b.dataset.go);
+          return;
+        }
+        if (b.dataset.step) {
+          S.step += +b.dataset.step;
+          if (S.step >= STEPS.length) {
+            go("talk");
+            return;
+          }
+          render();
+          return;
+        }
+        if ("mic" in b.dataset) {
+          if (S.mic || S.lone || S.line >= LINES.length - 1) return;
+          S.mic = true;
+          S.line++;
+          render();
+          S.t = setTimeout(() => {
+            S.mic = false;
+            S.lone = true;
+            S.line++;
+            render();
+            S.t = setTimeout(() => {
+              S.lone = false;
+              render();
+            }, 2600);
+          }, 1600);
+          return;
+        }
+        const p = b.parentElement;
+        if (p.classList.contains("tri") || p.classList.contains("voice"))
+          p.querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", x === b));
+      });
+      render();
+    </script>
+  </body>
+</html>
