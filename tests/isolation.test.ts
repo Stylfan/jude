@@ -39,11 +39,19 @@ describe("profiles", () => {
   it("keep the yes before the first conversation, also when the profile changes", async () => {
     await as(anne, (tx) => saveProfile(tx, anne, profile));
     expect(hasConsented(await as(anne, (tx) => getProfile(tx, anne)))).toBe(false);
-    expect(await as(anne, (tx) => giveConsent(tx, anne, 1_000))).toBe(true);
+    await as(anne, (tx) => giveConsent(tx, anne, 1_000));
     await as(anne, (tx) => saveProfile(tx, anne, { ...profile, improve: "At lytte" }));
     expect((await as(anne, (tx) => getProfile(tx, anne)))?.consentedAt).toBe(1_000);
     // Bo cannot say yes on Anne's behalf: her row is not his to change.
-    expect(await as(bo, (tx) => giveConsent(tx, anne))).toBe(false);
+    await expect(as(bo, (tx) => giveConsent(tx, anne))).rejects.toThrow();
+    expect((await as(anne, (tx) => getProfile(tx, anne)))?.consentedAt).toBe(1_000);
+  });
+
+  it("start empty with the yes, when the first conversation comes before a profile", async () => {
+    await as(bo, (tx) => giveConsent(tx, bo, 2_000));
+    const row = await as(bo, (tx) => getProfile(tx, bo));
+    expect(row?.consentedAt).toBe(2_000);
+    expect(row?.firstName).toBe("");
   });
 
   it("are seen and changed only by their own account", async () => {

@@ -3,7 +3,7 @@ import { capTurn } from "@/domain/conversation";
 import { feedbackMessages, rolePrompt } from "@/domain/prompts";
 import { STOP_MARKER } from "@/domain/safety";
 import { containsIdentifiers, hasContext, scenarioSchema } from "@/domain/scenario";
-import { pickVoice, publicVoices, readVoices, voicesFor } from "@/domain/voices";
+import { coverage, pickVoice, publicVoices, readVoices, voicesFor } from "@/domain/voices";
 
 const schema = scenarioSchema(500);
 const lone = {
@@ -87,6 +87,12 @@ describe("voices", () => {
     expect(voices.map((v) => v.id)).toEqual(["ung-mand", "rolig-kvinde"]);
     expect(JSON.stringify(publicVoices(voices))).not.toContain("v2");
     expect(readVoices({ JUDE_VOICES: "not json" })).toEqual([]);
+  });
+
+  it("say which genders and ages have a voice, and hold nobody back without voices", () => {
+    const one = publicVoices(readVoices(env)).filter((v) => v.gender === "mand");
+    expect(coverage(one)).toEqual({ genders: ["mand", "andet"], minAge: one[0]!.ageMin });
+    expect(coverage([])).toBeNull();
   });
 
   it("put the voices that fit the person first", () => {

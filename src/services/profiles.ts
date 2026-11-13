@@ -54,13 +54,12 @@ export async function saveProfile(db: Db, userId: string, input: ProfileInput): 
  * The yes before the first conversation: what is said goes to Mistral, and
  * sensitive matters are best left out. Kept as a time only.
  */
-export async function giveConsent(db: Db, userId: string, now = Date.now()): Promise<boolean> {
-  const rows = await db
-    .update(profiles)
-    .set({ consentedAt: now })
-    .where(eq(profiles.userId, userId))
-    .returning({ userId: profiles.userId });
-  return rows.length > 0;
+export async function giveConsent(db: Db, userId: string, now = Date.now()): Promise<void> {
+  // The first conversation can come before any profile: the yes starts an empty one.
+  await db
+    .insert(profiles)
+    .values({ userId, consentedAt: now })
+    .onConflictDoUpdate({ target: profiles.userId, set: { consentedAt: now } });
 }
 
 export function hasConsented(profile: Profile | null): boolean {

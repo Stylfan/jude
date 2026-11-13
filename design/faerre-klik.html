@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="da">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Jude – færre klik</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --paper: #f8f6f2;
+        --beige: #efeae4;
+        --ink: #2f3f44;
+        --slate: #5c6a6f;
+        --line: #c9c1b6;
+        --hair: #e4ded5;
+        --accent: #a88e6e;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      body {
+        background: #ece8e2;
+        color: var(--ink);
+        font:
+          15px/1.5 Inter,
+          system-ui,
+          sans-serif;
+        font-feature-settings: "tnum";
+      }
+      button,
+      select,
+      input,
+      textarea {
+        font: inherit;
+        color: inherit;
+      }
+      button {
+        cursor: pointer;
+      }
+      header {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 28px 16px 8px;
+      }
+      .eyebrow {
+        font-size: 11px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--accent);
+        font-weight: 500;
+      }
+      h1 {
+        font-weight: 400;
+        font-size: 26px;
+        margin: 6px 0 4px;
+      }
+      header p {
+        color: var(--slate);
+        font-size: 14px;
+        max-width: 720px;
+      }
+      .grid {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 20px 16px 48px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        gap: 28px;
+      }
+      .option h2 {
+        font-size: 15px;
+        font-weight: 500;
+        display: flex;
+        gap: 10px;
+        align-items: baseline;
+      }
+      .option h2 b {
+        color: var(--accent);
+        font-weight: 500;
+        font-size: 22px;
+      }
+      .facts {
+        font-size: 13px;
+        color: var(--slate);
+        margin: 4px 0 12px;
+        min-height: 60px;
+      }
+      .facts strong {
+        color: var(--ink);
+        font-weight: 500;
+      }
+      .device {
+        background: var(--paper);
+        border-radius: 28px;
+        overflow: hidden;
+        box-shadow:
+          0 1px 0 var(--hair),
+          0 20px 50px -30px rgba(47, 63, 68, 0.35);
+        height: 720px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+      }
+      .banner {
+        background: var(--beige);
+        font-size: 11.5px;
+        color: var(--slate);
+        text-align: center;
+        padding: 7px;
+      }
+      .screen {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 16px 22px 22px;
+        overflow-y: auto;
+      }
+      .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 13px;
+        color: var(--slate);
+        min-height: 28px;
+      }
+      .mark {
+        letter-spacing: 0.3em;
+        font-size: 12px;
+        color: var(--ink);
+      }
+      .title {
+        font-size: 23px;
+        font-weight: 400;
+        margin: 18px 0 16px;
+        line-height: 1.25;
+      }
+      label {
+        display: block;
+        font-size: 12px;
+        color: var(--slate);
+        margin-bottom: 4px;
+      }
+      .f {
+        width: 100%;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 9px 11px;
+        font-size: 14.5px;
+        appearance: none;
+      }
+      .f:focus {
+        outline: 2px solid var(--accent);
+        outline-offset: 1px;
+      }
+      .row {
+        display: grid;
+        grid-template-columns: 1fr 72px 104px;
+        gap: 8px;
+      }
+      .stack {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .hint {
+        font-size: 11.5px;
+        color: var(--slate);
+      }
+      .more {
+        border: 0;
+        background: none;
+        padding: 4px 0;
+        text-align: left;
+        font-size: 13px;
+        color: var(--slate);
+      }
+      .more::before {
+        content: "+ ";
+        color: var(--accent);
+      }
+      .more[aria-expanded="true"]::before {
+        content: "– ";
+      }
+      .voice {
+        display: flex;
+        justify-content: space-between;
+        font-size: 13px;
+        color: var(--slate);
+        border-top: 1px solid var(--hair);
+        padding-top: 10px;
+      }
+      .voice button {
+        border: 0;
+        background: none;
+        color: #7d6748;
+        font-size: 12px;
+      }
+      .consent {
+        display: flex;
+        gap: 9px;
+        align-items: flex-start;
+        font-size: 12px;
+        color: var(--slate);
+        background: #fff;
+        border: 1px solid var(--hair);
+        border-radius: 10px;
+        padding: 10px 11px;
+        line-height: 1.45;
+      }
+      .consent input {
+        margin-top: 2px;
+        accent-color: var(--ink);
+      }
+      .spacer {
+        flex: 1;
+        min-height: 14px;
+      }
+      .primary {
+        width: 100%;
+        border: 0;
+        border-radius: 12px;
+        background: var(--ink);
+        color: var(--paper);
+        padding: 13px;
+        font-size: 15px;
+      }
+      .primary:disabled {
+        opacity: 0.45;
+        cursor: default;
+      }
+      .quiet {
+        border: 0;
+        background: none;
+        color: var(--slate);
+        font-size: 13px;
+        padding: 8px;
+        display: block;
+        margin: 2px auto 0;
+      }
+      .sentence {
+        font-size: 21px;
+        line-height: 2.1;
+        font-weight: 300;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      .sentence .in {
+        field-sizing: content;
+        display: inline-block;
+        border: 0;
+        border-bottom: 1.5px solid var(--accent);
+        background: transparent;
+        font-size: 21px;
+        font-weight: 400;
+        padding: 0 2px;
+        border-radius: 0;
+        appearance: none;
+      }
+      .steps {
+        display: flex;
+        gap: 5px;
+        width: 60px;
+      }
+      .steps i {
+        height: 2px;
+        flex: 1;
+        background: var(--hair);
+      }
+      .steps i.on {
+        background: var(--accent);
+      }
+      /* The conversation */
+      .talk {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        text-align: center;
+        padding-top: 24px;
+      }
+      .ring {
+        width: 116px;
+        height: 116px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        box-shadow: 0 0 0 6px rgba(168, 142, 110, 0.12);
+      }
+      .ring span {
+        width: 98px;
+        height: 98px;
+        border-radius: 50%;
+        background: var(--beige);
+        display: grid;
+        place-items: center;
+        font-size: 34px;
+        font-weight: 300;
+      }
+      .sub {
+        font-size: 19px;
+        line-height: 1.35;
+        min-height: 110px;
+        display: flex;
+        align-items: center;
+      }
+      .mic {
+        width: 66px;
+        height: 66px;
+        border-radius: 50%;
+        border: 0;
+        background: var(--accent);
+        color: var(--paper);
+        display: grid;
+        place-items: center;
+        box-shadow: 0 0 0 8px rgba(168, 142, 110, 0.18);
+      }
+      .status {
+        font-size: 12.5px;
+        color: var(--slate);
+        margin-top: 8px;
+      }
+      .counter {
+        position: absolute;
+        right: 12px;
+        bottom: 10px;
+        font-size: 11px;
+        color: var(--accent);
+      }
+      .restart {
+        border: 0;
+        background: none;
+        color: var(--slate);
+        font-size: 12px;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        margin-top: 10px;
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        .mic {
+          animation: breathe 2.4s ease-in-out infinite;
+        }
+        @keyframes breathe {
+          0%,
+          100% {
+            box-shadow: 0 0 0 6px rgba(168, 142, 110, 0.18);
+          }
+          50% {
+            box-shadow: 0 0 0 12px rgba(168, 142, 110, 0.1);
+          }
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <span class="eyebrow">Jude · færre klik</span>
+      <h1>Tre bud på vejen fra demo til samtale</h1>
+      <p>
+        I dag: 7 klik og 6 skærmskift, før du siger det første ord (profil, samtykke, tre trin,
+        mikrofon). Alle tre bud springer profilen over ved første besøg (den tilbydes efter
+        feedbacken), vælger stemmen af sig selv, og lader "Start samtalen" også starte mikrofonen.
+        Klik dig igennem hvert bud.
+      </p>
+    </header>
+
+    <div class="grid">
+      <section class="option">
+        <h2><b>01</b> Én side</h2>
+        <p class="facts">
+          <strong>3 klik · 2 skærmskift.</strong> Alt på én rolig side; baggrunden er foldet sammen.
+          Fordel: hurtigst, og alt ses på én gang. Ulempe: siden er lidt længere på en lille
+          telefon.
+        </p>
+        <div class="device" id="a"></div>
+      </section>
+
+      <section class="option">
+        <h2><b>02</b> Én sætning</h2>
+        <p class="facts">
+          <strong>3 klik · 2 skærmskift.</strong> Opsætningen er en sætning, du udfylder. Fordel:
+          føles som at fortælle, ikke at udfylde en formular. Ulempe: mindre plads til lange roller
+          og svær at gøre helt tydelig for skærmlæsere.
+        </p>
+        <div class="device" id="b"></div>
+      </section>
+
+      <section class="option">
+        <h2><b>03</b> To trin</h2>
+        <p class="facts">
+          <strong>4 klik · 3 skærmskift.</strong> Dagens trin, men samtykke og stemme er væk som
+          egne skærme. Fordel: mindst ændring, ét spørgsmål ad gangen. Ulempe: stadig et ekstra
+          skærmskift.
+        </p>
+        <div class="device" id="c"></div>
+      </section>
+    </div>
+
+    <script>
+      const MIC =
+        '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>';
+      const banner = '<div class="banner">Demo · din profil slettes efter 24 timer</div>';
+      const head = (left = "", right = "Profil") =>
+        `<div class="top"><span class="mark">${left || "◎ JUDE"}</span><span>${right}</span></div>`;
+      const consent = `<label class="consent"><input type="checkbox" data-consent>
+        <span>Det, du siger, sendes til Mistral AI i EU. Undgå helbred og andet følsomt, og brug kun fornavne. Jude gemmer ikke samtalen.</span></label>`;
+      const voice = `<div class="voice"><span>Stemme: Rolig, mand</span><button type="button">▶ Hør</button></div>`;
+      const roleSel = `<select class="f"><option>Leder</option><option>Far</option><option>Andet …</option></select>`;
+      const relSel = `<select class="f"><option>Medarbejder</option><option>Kollega</option><option>Søn</option><option>Chef</option></select>`;
+      const genderSel = `<select class="f"><option disabled>Kvinde (kommer snart)</option><option selected>Mand</option><option>Andet</option></select>`;
+      const background = `<div class="stack" data-bg hidden>
+          <div><label>Hvad handler det om?</label><textarea class="f" rows="2" placeholder="Fx at hans opgaver flytter til et nyt team"></textarea></div>
+          <div><label>Hvad vil du opnå?</label><input class="f" placeholder="Fx at han forstår og føler sig hørt"></div>
+          <div><label>Sværhedsgrad</label><select class="f"><option>Let</option><option selected>Middel</option><option>Svær</option></select></div>
+        </div>`;
+      const more = `<button type="button" class="more" aria-expanded="false" data-more>Tilføj baggrund (valgfrit)</button>`;
+
+      function talk(clicks) {
+        return `${banner}<div class="screen">${head("4 af 15 minutter", "Afslut")}
+          <div class="talk">
+            <div style="display:grid;justify-items:center;gap:10px"><div class="ring"><span>J</span></div><span>Jens</span></div>
+            <p class="sub"><span style="font-size:14px;color:var(--slate)">Sig det første, når du er klar.</span></p>
+            <div style="display:grid;justify-items:center"><button class="mic" type="button" aria-label="Send nu">${MIC}</button>
+            <span class="status">Jeg lytter. Tal bare.</span>
+            <button type="button" class="restart" data-restart>Forfra</button></div>
+          </div>
+          <span class="counter">${clicks} klik, og du taler</span></div>`;
+      }
+      function demo(next) {
+        return `${banner}<div class="screen">${head("◎ JUDE", "")}
+          <div class="spacer"></div>
+          <span class="eyebrow">Demo</span>
+          <p class="title">Øv en svær samtale højt.</p>
+          <p class="hint" style="font-size:13.5px">Jude spiller den anden og giver dig feedback bagefter. Ingen e-mail, ingen adgangskode.</p>
+          <div class="spacer"></div>
+          <button class="primary" type="button" data-go="${next}">Start demoen</button></div>`;
+      }
+
+      const screens = {
+        a: {
+          demo: () => demo("setup"),
+          setup: () => `${banner}<div class="screen">${head()}
+            <p class="title">Hvem skal du tale med?</p>
+            <div class="stack">
+              <div><label>Du er</label>${roleSel}</div>
+              <div class="row">
+                <div><label>Fornavn</label><input class="f" value="Jens"></div>
+                <div><label>Alder</label><input class="f" value="52" inputmode="numeric"></div>
+                <div><label>Køn</label>${genderSel}</div>
+              </div>
+              <div><label>Jens er din</label>${relSel}</div>
+              ${more}${background}
+              ${voice}
+            </div>
+            <div class="spacer"></div>
+            ${consent}
+            <div style="height:10px"></div>
+            <button class="primary" type="button" data-go="talk" data-needs-consent disabled>Start samtalen</button></div>`,
+          talk: () => talk(3),
+        },
+        b: {
+          demo: () => demo("setup"),
+          setup: () => `${banner}<div class="screen">${head()}
+            <p class="sentence">Jeg er <select class="in"><option>leder</option><option>far</option></select>
+              og skal tale med <input class="in" value="Jens" size="5">,
+              <input class="in" value="52" size="2" inputmode="numeric"> år,
+              <select class="in"><option disabled>kvinde (kommer snart)</option><option selected>mand</option></select>,
+              min <select class="in"><option>medarbejder</option><option>kollega</option><option>søn</option></select>.</p>
+            <div class="stack" style="margin-top:14px">${more}${background}${voice}</div>
+            <div class="spacer"></div>
+            ${consent}
+            <div style="height:10px"></div>
+            <button class="primary" type="button" data-go="talk" data-needs-consent disabled>Start samtalen</button></div>`,
+          talk: () => talk(3),
+        },
+        c: {
+          demo: () => demo("who"),
+          who: () => `${banner}<div class="screen"><div class="top"><span></span><span class="steps"><i class="on"></i><i></i></span></div>
+            <p class="title">Hvem skal du tale med?</p>
+            <div class="stack">
+              <div><label>Du er</label>${roleSel}</div>
+              <div class="row">
+                <div><label>Fornavn</label><input class="f" value="Jens"></div>
+                <div><label>Alder</label><input class="f" value="52"></div>
+                <div><label>Køn</label>${genderSel}</div>
+              </div>
+              <div><label>Jens er din</label>${relSel}</div>
+            </div>
+            <div class="spacer"></div>
+            ${consent}
+            <div style="height:10px"></div>
+            <button class="primary" type="button" data-go="why" data-needs-consent disabled>Næste</button></div>`,
+          why: () => `${banner}<div class="screen"><div class="top"><span>←</span><span class="steps"><i class="on"></i><i class="on"></i></span></div>
+            <p class="title">Hvorfor taler I sammen?</p>
+            <div class="stack">
+              <div><label>Hvad handler det om?</label><textarea class="f" rows="2" placeholder="Fx at hans opgaver flytter til et nyt team"></textarea></div>
+              <div><label>Hvad vil du opnå?</label><input class="f" placeholder="Fx at han forstår og føler sig hørt"></div>
+              <div><label>Sværhedsgrad</label><select class="f"><option>Let</option><option selected>Middel</option><option>Svær</option></select></div>
+              ${voice}
+            </div>
+            <div class="spacer"></div>
+            <button class="primary" type="button" data-go="talk">Start samtalen</button>
+            <p class="hint" style="text-align:center;margin-top:6px">Felterne kan stå tomme.</p></div>`,
+          talk: () => talk(4),
+        },
+      };
+
+      function show(id, name) {
+        const el = document.getElementById(id);
+        el.innerHTML = screens[id][name]();
+        el.querySelectorAll("[data-go]").forEach((b) =>
+          b.addEventListener("click", () => show(id, b.dataset.go)),
+        );
+        el.querySelector("[data-restart]")?.addEventListener("click", () => show(id, "demo"));
+        const box = el.querySelector("[data-consent]");
+        const gated = el.querySelector("[data-needs-consent]");
+        box?.addEventListener("change", () => (gated.disabled = !box.checked));
+        const m = el.querySelector("[data-more]");
+        m?.addEventListener("click", () => {
+          const open = m.getAttribute("aria-expanded") !== "true";
+          m.setAttribute("aria-expanded", String(open));
+          el.querySelector("[data-bg]").hidden = !open;
+        });
+      }
+      ["a", "b", "c"].forEach((id) => show(id, "demo"));
+    </script>
+  </body>
+</html>

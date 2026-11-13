@@ -82,3 +82,17 @@ export function pickVoice(voices: Voice[], id: string, gender: Gender, age: numb
   const best = voicesFor(voices, gender, age)[0];
   return best ? (voices.find((v) => v.id === best.id) ?? null) : null;
 }
+
+/**
+ * Who the configured voices can speak for: the genders that have a voice
+ * and the youngest age any voice covers. The set-up shows the rest as
+ * "kommer snart". With no voices at all, the other person answers in
+ * subtitles, so nobody is held back (null).
+ */
+export type Coverage = { genders: Gender[]; minAge: number };
+
+export function coverage(voices: PublicVoice[]): Coverage | null {
+  if (voices.length === 0) return null;
+  const genders: Gender[] = [...new Set(voices.map((v) => v.gender)), "andet"];
+  return { genders, minAge: Math.min(...voices.map((v) => v.ageMin)) };
+}

@@ -6,7 +6,7 @@ import { sealTicket } from "@/domain/ticket";
 import { pickVoice, readVoices } from "@/domain/voices";
 import { apiUser, failure, json, ticketSecret } from "@/lib/conversation-api";
 import { aiAvailable } from "@/services/mistral";
-import { getProfile, hasConsented } from "@/services/profiles";
+import { getProfile, giveConsent, hasConsented } from "@/services/profiles";
 import { charge } from "@/services/usage";
 
 /**
@@ -22,17 +22,22 @@ export async function POST(request: Request) {
   if (!user) return json({ error: "unauthorized" }, 401);
   if (!aiAvailable()) return json({ error: "notConfigured" }, 503);
   const limits = readLimits();
-  const parsed = scenarioSchema(limits.charsPerField).safeParse(
-    ((await request.json().catch(() => null)) as { scenario?: unknown } | null)?.scenario,
-  );
+  const body = (await request.json().catch(() => null)) as {
+    scenario?: unknown;
+    consent?: unknown;
+  } | null;
+  const parsed = scenarioSchema(limits.charsPerField).safeParse(body?.scenario);
   if (!parsed.success) return json({ error: "invalid" }, 400);
   try {
-    // Nothing goes to Mistral before the person has said yes to it.
-    const result = await withUser(user.id, async (tx) =>
-      hasConsented(await getProfile(tx, user.id))
-        ? charge(tx, limits, { conversations: 1 })
-        : "consent",
-    );
+    // Nothing goes to Mistral before the person has said yes to it, with
+    // the box above "Start samtalen" the first time.
+    const result = await withUser(user.id, async (tx) => {
+      if (!hasConsented(await getProfile(tx, user.id))) {
+        if (body?.consent !== true) return "consent" as const;
+        await giveConsent(tx, user.id);
+      }
+      return charge(tx, limits, { conversations: 1 });
+    });
     if (result === "consent") return json({ error: "consent" }, 403);
     if (result !== "ok") return json({ error: "limit", which: result }, 429);
     const s = parsed.data;

@@ -53,7 +53,9 @@ const ARROW: React.CSSProperties = {
 export function Select({
   options,
   ...props
-}: React.ComponentProps<"select"> & { options: { value: string; label: string }[] }) {
+}: React.ComponentProps<"select"> & {
+  options: { value: string; label: string; disabled?: boolean }[];
+}) {
   return (
     <select
       {...props}
@@ -61,7 +63,7 @@ export function Select({
       className={cn(FIELD, "appearance-none pr-9", props.className)}
     >
       {options.map((o) => (
-        <option key={o.value} value={o.value}>
+        <option key={o.value} value={o.value} disabled={o.disabled}>
           {o.label}
         </option>
       ))}

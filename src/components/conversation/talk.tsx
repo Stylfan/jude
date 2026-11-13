@@ -3,14 +3,18 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/cn";
+import { sharedPlayer, unlockAudio } from "@/lib/audio-unlock";
 import { QuietButton } from "./fields";
 import type { ApiError, LimitWhich, ScenarioDraft, Turn } from "./types";
 import { useRecorder } from "./use-recorder";
 
 /**
  * The conversation: the other person's initial in a circle with a soft
- * ring while they speak, the subtitle, and the microphone. Tap to speak,
- * tap again to send. The history lives here, in the page, only.
+ * ring while they speak, the subtitle, and the microphone. It starts
+ * listening at once ("Start samtalen" was the tap); after that Jude hears when you have finished speaking, answers, and
+ * listens again, like a conversation between two people. A tap while
+ * listening sends at once; a tap while the other speaks interrupts. The
+ * history lives here, in the page, only.
  */
 
 type Phase = "idle" | "listening" | "thinking" | "speaking";
@@ -36,6 +40,14 @@ const MIC = (
   </svg>
 );
 
+/** Plays a reply on the conversation's one audio element. */
+function playOn(element: HTMLAudioElement, src: string, done: () => void) {
+  element.src = src;
+  element.onended = done;
+  element.onerror = done;
+  void element.play().catch(done);
+}
+
 export function Talk({
   scenario,
   ticket: firstTicket,
@@ -44,6 +56,7 @@ export function Talk({
   onEnd,
   onCrisis,
   onLimit,
+  autoStart,
 }: {
   scenario: ScenarioDraft;
   ticket: string;
@@ -52,6 +65,8 @@ export function Talk({
   onEnd: (history: Turn[], ticket: string) => void;
   onCrisis: () => void;
   onLimit: (which: LimitWhich, history: Turn[], ticket: string) => void;
+  /** Listen from the first moment, as when "Start samtalen" was just tapped. */
+  autoStart: boolean;
 }) {
   const t = useTranslations("talk");
   const te = useTranslations("errors");
@@ -62,33 +77,46 @@ export function Talk({
   const [now, setNow] = useState(() => Date.now());
   const ticket = useRef(firstTicket);
   const player = useRef<HTMLAudioElement | null>(null);
+  // True from the first tap until the conversation ends: Jude listens again after each answer.
+  const live = useRef(false);
+  const listenNext = useRef<() => void>(() => undefined);
 
   useEffect(() => {
     const id = setInterval(() => setNow(Date.now()), 10_000);
     return () => clearInterval(id);
   }, []);
-  useEffect(() => () => player.current?.pause(), []);
+  // After "Afslut", an answer still on its way is neither shown nor played.
+  const gone = useRef(false);
+  useEffect(() => {
+    gone.current = false;
+    return () => {
+      gone.current = true;
+      player.current?.pause();
+    };
+  }, []);
 
   const speak = useCallback((audio: string | null, text: string) => {
     setPhase("speaking");
-    const done = () => setPhase((p) => (p === "speaking" ? "idle" : p));
+    const done = () => {
+      setPhase((p) => (p === "speaking" ? "idle" : p));
+      if (live.current) listenNext.current();
+    };
     if (!audio) {
       // No voice configured: the ring follows the subtitle for a reading moment.
       setTimeout(done, Math.min(6000, 1200 + text.length * 45));
       return;
     }
-    const a = new Audio(`data:audio/mpeg;base64,${audio}`);
-    player.current = a;
-    a.onended = done;
-    a.onerror = done;
-    void a.play().catch(done);
+    // The same element every time: Safari lets it play once a tap has started it.
+    player.current = sharedPlayer();
+    playOn(player.current, `data:audio/mpeg;base64,${audio}`, done);
   }, []);
 
   const send = useCallback(
     async (wav: Blob | null) => {
       if (!wav) {
+        // Nothing was said for a while: wait for a tap instead of listening forever.
         setPhase("idle");
-        setNotice(t("empty"));
+        setNotice(t("paused"));
         return;
       }
       setPhase("thinking");
@@ -99,8 +127,10 @@ export function Talk({
       form.append("audio", wav, "turn.wav");
       const res = await fetch("/api/conversation/turn", { method: "POST", body: form });
       const answer = (await res.json().catch(() => ({ error: "generic" }))) as TurnAnswer;
+      if (gone.current) return;
       if ("error" in answer) {
         setPhase("idle");
+        live.current = false;
         if (answer.error === "limit" && answer.which) {
           onLimit(answer.which, history, ticket.current);
         } else if (answer.error === "stopped") {
@@ -112,13 +142,14 @@ export function Talk({
       }
       ticket.current = answer.ticket;
       if (answer.kind === "stop") {
+        live.current = false;
         player.current?.pause();
         onCrisis();
         return;
       }
       if (answer.kind === "empty") {
-        setPhase("idle");
         setNotice(t("empty"));
+        listenNext.current();
         return;
       }
       setHistory((h) => [
@@ -133,16 +164,45 @@ export function Talk({
 
   const recorder = useRecorder(secondsPerTurn, (wav) => void send(wav));
 
+  const listen = useCallback(async () => {
+    if (await recorder.listen()) setPhase("listening");
+    else {
+      live.current = false;
+      setPhase("idle");
+    }
+  }, [recorder]);
+  useEffect(() => {
+    listenNext.current = () => void listen();
+  }, [listen]);
+
+  // Once per conversation, also under React's development double mount.
+  const started = useRef(false);
+  useEffect(() => {
+    if (!autoStart || started.current) return;
+    started.current = true;
+    live.current = true;
+    void listen();
+  }, [autoStart, listen]);
+
   const tap = async () => {
     setNotice(null);
     if (phase === "listening") {
-      void send(await recorder.stop());
+      recorder.send();
       return;
     }
     if (phase === "thinking") return;
-    // Speaking first: tapping interrupts, as you would in a real conversation.
+    unlockAudio();
+    // Speaking: tapping interrupts, as you would in a real conversation.
     player.current?.pause();
-    if (await recorder.start()) setPhase("listening");
+    live.current = true;
+    await listen();
+  };
+
+  const end = () => {
+    live.current = false;
+    recorder.close();
+    player.current?.pause();
+    onEnd(history, ticket.current);
   };
 
   const last = history.at(-1);
@@ -168,7 +228,7 @@ export function Talk({
     <div className="flex flex-1 flex-col">
       <div className="flex min-h-8 items-center justify-between text-[13px] text-slate">
         <span>{t("minutes", { used, total: minutes })}</span>
-        <QuietButton onClick={() => onEnd(history, ticket.current)}>{t("end")}</QuietButton>
+        <QuietButton onClick={end}>{t("end")}</QuietButton>
       </div>
 
       <div className="flex flex-1 flex-col items-center justify-between pt-8 text-center">
@@ -196,7 +256,7 @@ export function Talk({
             type="button"
             onClick={() => void tap()}
             disabled={phase === "thinking"}
-            aria-label={phase === "listening" ? t("stop") : t("start")}
+            aria-label={phase === "listening" ? t("send") : t("start")}
             data-listening={phase === "listening"}
             className={cn(
               "jude-mic grid size-[72px] place-items-center rounded-full text-paper transition-colors disabled:opacity-60",

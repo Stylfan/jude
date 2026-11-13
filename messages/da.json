@@ -393,14 +393,9 @@
     "conversation": "Til samtalen"
   },
   "setup": {
-    "stepOf": "Trin {step} af {total}",
-    "back": "Tilbage",
-    "next": "Næste",
-    "skip": "Spring over",
     "start": "Start samtalen",
     "starting": "Starter …",
     "who": {
-      "title": "Hvem skal du tale med?",
       "yourRole": "Du er",
       "yourRoleOther": "Skriv din rolle",
       "otherRole": "Andet …",
@@ -409,24 +404,27 @@
       "age": "Alder",
       "gender": "Køn",
       "relation": "{name} er din",
-      "relationFallback": "Personen er din"
+      "relationFallback": "Personen er din",
+      "soon": "{label} (kommer snart)",
+      "youngSoon": "Under {age} år kommer snart."
     },
     "why": {
-      "title": "Hvorfor taler I sammen?",
       "about": "Hvad handler det om?",
-      "aboutPlaceholder": "Fx at hendes opgaver flyttes til et nyt team",
+      "aboutPlaceholder": "Fx at opgaverne flytter til et nyt team",
       "goal": "Hvad vil du opnå?",
-      "goalPlaceholder": "Fx at hun forstår beslutningen og føler sig hørt",
+      "goalPlaceholder": "Fx at beslutningen bliver forstået, og at personen føler sig hørt",
       "reaction": "{name} plejer at",
       "reactionNone": "Ved ikke",
       "difficulty": "Sværhedsgrad",
-      "privacy": "Skriv ikke noget, der kan pege på en bestemt person, fx efternavn, arbejdsplads eller helbred."
+      "more": "Tilføj baggrund (valgfrit)",
+      "reactionFallback": "Personen plejer at"
     },
     "voice": {
-      "title": "Hvordan skal {name} lyde?",
-      "fits": "Stemmer til {gender} på {age} år står øverst.",
+      "line": "Stemme: {label}",
+      "label": "Stemme",
       "listen": "Hør",
-      "none": "Der er ingen stemmer sat op endnu. {name} svarer med undertekst."
+      "them": "Personen",
+      "none": "{name} svarer med undertekst. Der er ingen stemmer sat op endnu."
     },
     "genders": {
       "kvinde": "Kvinde",
@@ -468,22 +466,24 @@
     },
     "errors": {
       "invalid": "Noget i opsætningen kan ikke bruges. Brug kun fornavn, og skriv ikke e-mail, telefon- eller CPR-numre."
-    }
+    },
+    "title": "Hvem skal du tale med?"
   },
   "talk": {
     "minutes": "{used} af {total} minutter",
     "end": "Afslut",
-    "ready": "Tryk og begynd, når du er klar.",
-    "listening": "Lytter …",
+    "ready": "Sig det første, når du er klar.",
+    "listening": "Jeg lytter. Tal bare.",
     "thinking": "{name} tænker …",
     "start": "Tal",
-    "stop": "Stop og send",
     "micDenied": "Jude kan ikke bruge mikrofonen. Giv lov i browseren, og prøv igen.",
     "micMissing": "Der er ingen mikrofon. Jude skal bruge en for at øve samtalen.",
     "empty": "Jude hørte ikke noget. Prøv igen.",
     "tooLong": "Det var for langt til én tur. Sig det lidt kortere.",
     "timeUp": "Tiden er gået.",
-    "turnsUp": "Samtalen har nået sit antal ture."
+    "turnsUp": "Samtalen har nået sit antal ture.",
+    "send": "Send nu",
+    "paused": "Jeg hørte ikke noget. Tryk, når du vil tale."
   },
   "feedback": {
     "label": "Feedback",
@@ -504,7 +504,8 @@
     "again": "Ny samtale",
     "loading": "Feedbacken skrives …",
     "tooShort": "Samtalen var for kort til feedback. Prøv igen, og sig lidt mere.",
-    "close": "Luk"
+    "close": "Luk",
+    "profile": "Fortæl Jude lidt om dig selv, så passer feedbacken bedre."
   },
   "crisis": {
     "title": "Vi stopper samtalen her",
@@ -542,12 +543,6 @@
     "skip": "Spring over"
   },
   "consent": {
-    "label": "Før første samtale",
-    "title": "Det, du siger, sendes til Mistral",
-    "sent": "Mistral AI i EU modtager din stemme, det du skriver i opsætningen og hele samtalen. Mistral laver tale om til tekst, spiller den anden og skriver feedbacken. Jude gemmer ikke samtalen. Kun din profil gemmes.",
-    "sensitive": "Undgå følsomme oplysninger: helbred, sygdom, seksualitet, tro og politik. Det gælder både dig selv og den anden.",
-    "names": "Undgå alt, der kan pege på en bestemt person. Brug kun fornavne og ingen arbejdspladser, adresser eller diagnoser.",
-    "more": "Læs mere i <link>privatlivspolitikken</link>.",
-    "accept": "Ja, jeg forstår og vil fortsætte"
+    "check": "Det, du siger, sendes til Mistral AI i EU. Undgå helbred og andet følsomt, og brug kun fornavne. Jude gemmer ikke samtalen. <link>Læs mere</link>"
   }
 }

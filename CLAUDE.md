@@ -29,22 +29,24 @@ work with the product owner.
 - Profile (stored, deletable, exportable): first name, age, your roles
   (private: far, storebror, partner …; work: stilling), and what you want
   to get better at. Nothing else.
-- Set-up per conversation, three steps:
-  1. Who: your role, the other person's first name, age, gender and
-     relation to you.
-  2. Why (can be skipped): what it is about, what you want to achieve, how
-     the person usually reacts, difficulty (Let, Middel, Svær).
-  3. Voice: a choice of voices that fit the person's gender and age, each
-     with a short preview.
+- Set-up per conversation, on one page (design/faerre-klik.html, option 01,
+  chosen 2026-11-13): your role, the other person's first name, age,
+  gender and relation; a folded "Tilføj baggrund (valgfrit)" with what it
+  is about, what you want to achieve, how the person usually reacts and
+  difficulty (Let, Middel, Svær); the voice chosen by itself with "Hør".
+  Genders and ages without a voice yet show as "kommer snart".
+  "Start samtalen" also starts the microphone. The profile is offered
+  after the first feedback, not before the first conversation.
 - **First names only, never a surname, never anything that identifies a
   real person** (no workplace names, addresses, diagnoses). The form says
   so, and the model is told never to ask for or repeat such details.
-- Before the first conversation: a card says that Mistral receives the
-  voice, the set-up and the whole conversation, and asks the person to
-  leave out sensitive details (health, illness, sexuality, faith,
-  politics) and anything identifying. They say yes with the one button;
-  the time is stored on the profile, and the server refuses to start a
-  conversation without it.
+- Before the first conversation: a box above "Start samtalen" says that
+  Mistral receives what is said, and asks the person to leave out
+  sensitive details and anything identifying. They tick it; the time is
+  stored on the profile, and the server refuses to start a conversation
+  without it.
+- Conversation: one tap starts it; Jude hears when the person stops
+  speaking (a short pause), answers, and listens again.
 - Conversation: spoken in Danish, the other person answers with voice and
   a subtitle. A visible time limit ("4 af 15 minutter").
 - Feedback: four scores of 1–5 (Klarhed, Empati, Lytning, Fasthed), each
