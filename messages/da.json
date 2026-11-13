@@ -544,7 +544,7 @@
   "consent": {
     "label": "Før første samtale",
     "title": "Det, du siger, sendes til Mistral",
-    "sent": "Mistral AI i EU modtager din stemme, det du skriver i opsætningen og hele samtalen. Mistral laver tale om til tekst, spiller den anden og skriver feedbacken. Jude gemmer intet af det.",
+    "sent": "Mistral AI i EU modtager din stemme, det du skriver i opsætningen og hele samtalen. Mistral laver tale om til tekst, spiller den anden og skriver feedbacken. Jude gemmer ikke samtalen. Kun din profil gemmes.",
     "sensitive": "Undgå følsomme oplysninger: helbred, sygdom, seksualitet, tro og politik. Det gælder både dig selv og den anden.",
     "names": "Undgå alt, der kan pege på en bestemt person. Brug kun fornavne og ingen arbejdspladser, adresser eller diagnoser.",
     "more": "Læs mere i <link>privatlivspolitikken</link>.",

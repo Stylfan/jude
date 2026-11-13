@@ -8,3 +8,6 @@ next-env.d.ts
 .env.local
 coverage/
 .DS_Store
+
+# Voice recordings stay on the operator's machine (docs/voices.md).
+Stemme/

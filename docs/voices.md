@@ -58,6 +58,6 @@ which voices are suggested first for the person you talk to.
 
 ## The list
 
-| Jude id | Label | Gender | Ages | Speaker | Consent signed | Created at Mistral |
-| ------- | ----- | ------ | ---- | ------- | -------------- | ------------------ |
-| —       | —     | —      | —    | —       | —              | —                  |
+| Jude id    | Label | Gender | Ages  | Speaker                  | Consent signed | Created at Mistral |
+| ---------- | ----- | ------ | ----- | ------------------------ | -------------- | ------------------ |
+| rolig-mand | Rolig | mand   | 30–75 | The operator (own voice) | Not needed     | 2026-11-13         |
