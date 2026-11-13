@@ -5,7 +5,7 @@
 #   cp .env.production.example .env.production   # fill in the three secrets
 #   docker compose --env-file .env.production up -d --build
 #
-# The app listens on 127.0.0.1:3001; put a reverse proxy with HTTPS in
+# The app listens on 127.0.0.1:3002; put a reverse proxy with HTTPS in
 # front of it (Caddy, nginx, Coolify's Traefik).
 
 services:
@@ -65,8 +65,8 @@ services:
       JUDE_ACCOUNT_CONVERSATIONS_PER_DAY: ${JUDE_ACCOUNT_CONVERSATIONS_PER_DAY:-}
       JUDE_SERVER_CONVERSATIONS_PER_DAY: ${JUDE_SERVER_CONVERSATIONS_PER_DAY:-}
     ports:
-      # 3001, so it can sit beside Prismatic (3000) on one server.
-      - "127.0.0.1:3001:3000"
+      # 3002, so it can sit beside Prismatic (3000) and Distil (3001) on one server.
+      - "127.0.0.1:3002:3000"
     depends_on:
       migrate:
         condition: service_completed_successfully

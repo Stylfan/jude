@@ -101,7 +101,7 @@ shared as a package. Adapt, do not import.
   `src/app`: UI.
 - Self-hosted with Docker Compose on the same Hetzner server as Prismatic,
   at `coach.lenskjoldconsulting.dk`, deployed with Coolify; the app listens
-  on 127.0.0.1:3001 so it does not clash with Prismatic
+  on 127.0.0.1:3002 so it does not clash with Prismatic (3000) or Distil (3001)
   (`docs/self-hosting.md`). The development database runs on port 5435.
   `docs/subprocessors.md` lists Mistral (what it sees, how long it keeps
   it) and changes before any new third party does. No other network

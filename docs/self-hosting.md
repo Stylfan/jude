@@ -1,7 +1,7 @@
 # Running Jude on your own server
 
 Jude runs as three containers from `docker-compose.yml`: Postgres, a
-one-off migration step, and the app on `127.0.0.1:3001`. Put a reverse
+one-off migration step, and the app on `127.0.0.1:3002`. Put a reverse
 proxy with HTTPS in front of it. The microphone works only over HTTPS
 (or on localhost).
 
@@ -25,17 +25,9 @@ Make each secret with
 `JUDE_SECRET` also signs the conversation tickets; do not change it once
 people use two-step sign-in.
 
-## With Coolify, beside Prismatic
+## With Coolify, beside Prismatic and Distil
 
-1. New resource, Docker Compose, from the GitHub repository, branch
-   `main`, compose file `docker-compose.yml`.
-2. Domain for the `app` service: `https://coach.lenskjoldconsulting.dk`,
-   port 3000 inside the container.
-3. Environment variables: everything in `.env.production.example`, with
-   `JUDE_DEMO=on`, the operator's name, e-mail, address and
-   `JUDE_HOSTING=Hetzner Online GmbH i Tyskland`.
-4. Deploy. Coolify does not deploy by itself after a push; press
-   Redeploy each time.
+Step by step in [deploy-coolify.md](deploy-coolify.md).
 
 ## A demo installation
 
