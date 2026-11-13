@@ -14,7 +14,7 @@ At the DNS provider for `lenskjoldconsulting.dk`, add an `A` record:
 | ------- | ---- | ------------------------------------------- |
 | `coach` | A    | the server's IPv4 (the same as Prismatic's) |
 
-and an `AAAA` record with the IPv6 if the server has one. Traefik gets
+No `AAAA` record: Prismatic and Distil have none either. Traefik gets
 the HTTPS certificate by itself once the name points at the server. The
 microphone works only over HTTPS.
 
