@@ -1,3 +1,4 @@
+import type { ProfileRole } from "@/db/schema";
 import type { Turn } from "@/domain/conversation";
 import type { Feedback } from "@/domain/feedback";
 import type { Difficulty, Gender, Relation } from "@/domain/scenario";
@@ -14,6 +15,14 @@ export type ScenarioDraft = {
   reaction: string;
   difficulty: Difficulty;
   voice: string;
+};
+
+/** What the person tells Jude about themselves, as the front page edits it. */
+export type ProfileDraft = {
+  firstName: string;
+  age: string;
+  roles: ProfileRole[];
+  improve: string;
 };
 
 export type Started = { ticket: string; minutes: number; voice: string | null };

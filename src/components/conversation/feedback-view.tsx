@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { SCORE_KEYS } from "@/domain/feedback";
@@ -21,15 +20,12 @@ export function FeedbackView({
   history,
   ticket,
   notice,
-  inviteProfile,
   onAgain,
 }: {
   scenario: ScenarioDraft;
   history: Turn[];
   ticket: string;
   notice?: string;
-  /** After the first conversation: offer the profile, which sharpens the feedback. */
-  inviteProfile: boolean;
   onAgain: () => void;
 }) {
   const t = useTranslations("feedback");
@@ -123,13 +119,6 @@ export function FeedbackView({
         )}
       </div>
 
-      {inviteProfile && answer && "kind" in answer && answer.kind === "feedback" && (
-        <p className="mt-6 text-[13px] text-slate print:hidden">
-          <Link href="/profil" className="underline underline-offset-2 hover:text-ink">
-            {t("profile")}
-          </Link>
-        </p>
-      )}
       <div className="mt-6 flex flex-col items-center gap-1.5 print:hidden">
         <PrimaryButton onClick={onAgain}>{t("again")}</PrimaryButton>
         <QuietButton onClick={() => window.print()} disabled={!answer || "error" in answer}>

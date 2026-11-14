@@ -1,0 +1,619 @@
+<!doctype html>
+<html lang="da">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Jude – forsiden, bud 2A</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --paper: #f8f6f2;
+        --beige: #efeae4;
+        --tint: #f1ede7;
+        --ink: #2f3f44;
+        --slate: #5c6a6f;
+        --line: #c9c1b6;
+        --hair: #e4ded5;
+        --accent: #a88e6e;
+        --deep: #7d6748;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      body {
+        background: #ece8e2;
+        color: var(--ink);
+        font:
+          15px/1.5 Inter,
+          system-ui,
+          sans-serif;
+        font-feature-settings: "tnum";
+      }
+      button,
+      input {
+        font: inherit;
+        color: inherit;
+      }
+      button {
+        cursor: pointer;
+      }
+      header {
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 26px 16px 4px;
+      }
+      .eyebrow {
+        font-size: 11px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--accent);
+        font-weight: 500;
+      }
+      header h1 {
+        font-weight: 400;
+        font-size: 26px;
+        margin: 6px 0 4px;
+      }
+      header p {
+        color: var(--slate);
+        font-size: 14px;
+      }
+      .grid {
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 18px 16px 48px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        gap: 32px;
+      }
+      .option h2 {
+        font-size: 15px;
+        font-weight: 500;
+        display: flex;
+        gap: 10px;
+        align-items: baseline;
+      }
+      .option h2 b {
+        color: var(--accent);
+        font-weight: 500;
+        font-size: 22px;
+      }
+      .facts {
+        font-size: 13px;
+        color: var(--slate);
+        margin: 4px 0 12px;
+        min-height: 58px;
+      }
+      .device {
+        background: var(--paper);
+        border-radius: 30px;
+        overflow: hidden;
+        box-shadow:
+          0 1px 0 var(--hair),
+          0 20px 50px -30px rgba(47, 63, 68, 0.35);
+        height: 780px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+      }
+      .banner {
+        background: var(--beige);
+        font-size: 11.5px;
+        color: var(--slate);
+        text-align: center;
+        padding: 7px;
+      }
+      .scroll {
+        flex: 1;
+        overflow-y: auto;
+        padding: 14px 22px 0;
+      }
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        font-size: 13px;
+        color: var(--slate);
+      }
+      .mark {
+        letter-spacing: 0.3em;
+        font-size: 12px;
+        color: var(--ink);
+      }
+      .hello {
+        font-size: 25px;
+        font-weight: 300;
+        line-height: 1.2;
+        margin: 22px 0 18px;
+      }
+      .foot {
+        padding: 12px 22px 20px;
+        background: linear-gradient(to top, var(--paper) 78%, rgba(248, 246, 242, 0));
+      }
+      .primary {
+        width: 100%;
+        border: 0;
+        border-radius: 14px;
+        background: var(--ink);
+        color: var(--paper);
+        padding: 15px;
+        font-size: 15.5px;
+      }
+      .primary:disabled {
+        opacity: 0.4;
+        cursor: default;
+      }
+      .consent {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+        font-size: 12px;
+        color: var(--slate);
+        line-height: 1.45;
+        margin-bottom: 12px;
+      }
+      .consent input {
+        margin-top: 2px;
+        width: 16px;
+        height: 16px;
+        accent-color: var(--ink);
+        flex-shrink: 0;
+      }
+      .fold {
+        border-top: 1px solid var(--hair);
+      }
+      .fold > button {
+        width: 100%;
+        border: 0;
+        background: none;
+        display: grid;
+        grid-template-columns: 34px 1fr 18px;
+        align-items: center;
+        text-align: left;
+        padding: 16px 0;
+      }
+      .num {
+        color: var(--accent);
+        font-size: 15px;
+        font-weight: 500;
+      }
+      .q {
+        font-size: 16.5px;
+      }
+      .sum {
+        display: block;
+        font-size: 12.5px;
+        color: var(--slate);
+        margin-top: 1px;
+      }
+      .chev {
+        color: var(--slate);
+        transition: transform 0.2s;
+      }
+      .fold[data-open="true"] .chev {
+        transform: rotate(180deg);
+      }
+      .body {
+        padding: 0 0 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+      .glabel {
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--accent);
+        font-weight: 500;
+        margin-bottom: 2px;
+      }
+
+      /* A: open rows, hairlines only, editing in place */
+      .rows .r {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        min-height: 50px;
+        border-bottom: 1px solid var(--hair);
+        width: 100%;
+        background: none;
+        border-left: 0;
+        border-right: 0;
+        border-top: 0;
+        padding: 0;
+        text-align: left;
+      }
+      .rows .r > span:first-child {
+        color: var(--slate);
+        font-size: 14.5px;
+      }
+      .rows .r input {
+        border: 0;
+        background: transparent;
+        text-align: right;
+        font-size: 16px;
+        width: 150px;
+        padding: 12px 0;
+      }
+      .rows .r input:focus {
+        outline: 0;
+      }
+      .rows .r:focus-within {
+        border-bottom-color: var(--ink);
+      }
+      .rows .r input::placeholder {
+        color: #b0a89e;
+      }
+      .rows .v {
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .rows .v::after {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-right: 1.5px solid var(--line);
+        border-bottom: 1.5px solid var(--line);
+        transform: rotate(-45deg);
+        margin-left: 4px;
+      }
+      .rows .r[aria-expanded="true"] .v::after {
+        transform: rotate(45deg);
+      }
+      .inline {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        padding: 10px 0 14px;
+        border-bottom: 1px solid var(--hair);
+      }
+      .chip {
+        border: 1px solid var(--line);
+        background: transparent;
+        border-radius: 999px;
+        padding: 6px 13px;
+        font-size: 13.5px;
+      }
+      .chip[aria-pressed="true"] {
+        background: var(--ink);
+        border-color: var(--ink);
+        color: var(--paper);
+      }
+      .chip:disabled {
+        color: #b3aca3;
+        border-style: dashed;
+        cursor: default;
+      }
+      .voice {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 14.5px;
+        min-height: 50px;
+        border-bottom: 1px solid var(--hair);
+      }
+      .voice span {
+        color: var(--slate);
+      }
+      .voice button {
+        border: 1px solid var(--line);
+        background: none;
+        border-radius: 999px;
+        padding: 4px 12px;
+        color: var(--deep);
+        font-size: 12.5px;
+      }
+
+      /* B: soft tinted card, editing in a sheet from the bottom */
+      .card {
+        background: var(--tint);
+        border-radius: 20px;
+        padding: 2px 16px;
+      }
+      .card .r {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        min-height: 52px;
+        width: 100%;
+        border: 0;
+        background: none;
+        text-align: left;
+        padding: 0;
+      }
+      .card .r + .r {
+        box-shadow: inset 0 1px 0 rgba(201, 193, 182, 0.45);
+      }
+      .card .r > span:first-child {
+        color: var(--slate);
+        font-size: 14.5px;
+      }
+      .card .v {
+        font-size: 16px;
+      }
+      .card .v.empty {
+        color: var(--accent);
+        font-size: 14px;
+      }
+      .card .voice {
+        border: 0;
+        box-shadow: inset 0 1px 0 rgba(201, 193, 182, 0.45);
+      }
+      .scrim {
+        position: absolute;
+        inset: 0;
+        background: rgba(47, 63, 68, 0.28);
+        display: flex;
+        align-items: flex-end;
+        z-index: 5;
+      }
+      .sheet {
+        width: 100%;
+        background: var(--paper);
+        border-radius: 24px 24px 0 0;
+        padding: 10px 22px 24px;
+      }
+      .sheet .grab {
+        width: 38px;
+        height: 4px;
+        border-radius: 4px;
+        background: var(--line);
+        margin: 0 auto 16px;
+      }
+      .sheet h3 {
+        font-weight: 400;
+        font-size: 20px;
+        margin-bottom: 16px;
+      }
+      .sheet input {
+        width: 100%;
+        border: 0;
+        border-bottom: 1.5px solid var(--ink);
+        background: transparent;
+        font-size: 24px;
+        font-weight: 300;
+        padding: 4px 0 8px;
+        border-radius: 0;
+      }
+      .sheet input:focus {
+        outline: 0;
+      }
+      .sheet .opts {
+        display: flex;
+        flex-direction: column;
+      }
+      .sheet .opt {
+        border: 0;
+        background: none;
+        text-align: left;
+        padding: 13px 0;
+        font-size: 17px;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--hair);
+      }
+      .sheet .opt[aria-pressed="true"]::after {
+        content: "✓";
+        color: var(--accent);
+      }
+      .sheet .opt:disabled {
+        color: #b3aca3;
+      }
+      .sheet .done {
+        margin-top: 18px;
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        .scrim {
+          animation: fade 0.18s ease-out;
+        }
+        .sheet {
+          animation: rise 0.24s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        @keyframes fade {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+        @keyframes rise {
+          from {
+            transform: translateY(100%);
+          }
+          to {
+            transform: translateY(0);
+          }
+        }
+      }
+      .addline {
+        border: 0;
+        border-bottom: 1.5px solid var(--ink);
+        background: transparent;
+        font-size: 14px;
+        padding: 5px 2px;
+        width: 160px;
+        border-radius: 0;
+      }
+      .addline:focus {
+        outline: 0;
+      }
+      .chip.add {
+        color: var(--deep);
+        border-style: dashed;
+        border-color: var(--accent);
+      }
+      .fold:last-of-type {
+        border-bottom: 1px solid var(--hair);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <span class="eyebrow">Jude · forsiden, bud 2A</span>
+      <h1>Tre sektioner med åbne rækker</h1>
+      <p>
+        01 Fortæl Jude lidt om dig selv (foldet sammen) · 02 Hvem skal du tale med? (åben) · 03 Hvad
+        skal I tale om? (foldet sammen, valgfrit). Skriv direkte i rækkerne; tryk på Køn, Du er
+        eller "Personen er din" for valgene, og "+ Tilføj" for dit eget ord.
+      </p>
+    </header>
+
+    <div class="grid" style="grid-template-columns: minmax(340px, 400px); justify-content: center">
+      <section class="option">
+        <div class="device" id="a"></div>
+      </section>
+    </div>
+
+    <script>
+      const OPTIONS = {
+        gender: { list: ["Mand", "Andet"], soon: ["Kvinde"] },
+        rel: {
+          list: ["Medarbejder", "Kollega", "Chef", "Søn", "Datter", "Partner", "Forælder", "Ven"],
+          add: true,
+        },
+        role: { list: ["Leder", "Far", "Storebror", "Kollega"], add: true },
+        roles: { list: ["Leder", "Far", "Storebror", "Kollega"], add: true, multi: true },
+        level: { list: ["Let", "Middel", "Svær"] },
+      };
+      const chev =
+        '<svg class="chev" aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg>';
+      const fold = (n, q, sum, body, open) => `<div class="fold" data-open="${open}">
+          <button type="button" aria-expanded="${open}" data-fold><span class="num">${n}</span>
+          <span><span class="q">${q}</span>${sum ? `<span class="sum">${sum}</span>` : ""}</span>${chev}</button>
+          <div class="body" ${open ? "" : "hidden"}>${body}</div></div>`;
+      const text = (label, ph, mode = "text", key = "") =>
+        `<label class="r"><span>${label}</span><input placeholder="${ph}" inputmode="${mode}" ${key ? `data-key="${key}"` : ""}></label>`;
+      const pick = (label, key, value, labelKey = "") =>
+        `<button type="button" class="r" aria-expanded="false" data-inline="${key}"><span ${labelKey ? `data-label="${labelKey}"` : ""}>${label}</span><span class="v">${value}</span></button><div class="inline" hidden></div>`;
+
+      const html = `<div class="banner">Demo · din profil slettes efter 24 timer</div>
+        <div class="scroll"><div class="topbar"><span class="mark">◎ JUDE</span><span>Konto</span></div>
+        <p class="hello">Øv den svære samtale,<br>før du tager den.</p>
+        ${fold(
+          "01",
+          "Fortæl Jude lidt om dig selv",
+          "Gør feedbacken mere præcis · valgfrit",
+          `<div class="rows">${text("Fornavn", "Tilføj")}${text("Alder", "Tilføj", "numeric")}${pick("Dine roller", "roles", "Leder, Far")}${text("Bedre til", "Tilføj")}</div>`,
+          false,
+        )}
+        ${fold(
+          "02",
+          "Hvem skal du tale med?",
+          "",
+          `<div><p class="glabel">Personen, du skal tale med</p><div class="rows">${text("Fornavn", "Kun fornavn", "text", "name")}${text("Alder", "Tilføj", "numeric")}${pick("Køn", "gender", "Mand")}${pick("Du er", "role", "Leder")}${pick("Personen er din", "rel", "Medarbejder", "rel")}</div></div>`,
+          true,
+        )}
+        ${fold(
+          "03",
+          "Hvad skal I tale om?",
+          "Valgfrit",
+          `<div class="rows">${text("Handler om", "Tilføj")}${text("Dit mål", "Tilføj")}${pick("Sværhed", "level", "Middel")}<div class="voice"><span>Stemme</span><button type="button">▶ Rolig</button></div></div>`,
+          false,
+        )}
+        <div style="height:18px"></div></div>
+        <div class="foot"><label class="consent"><input type="checkbox" data-consent>
+          <span>Det, du siger, sendes til Mistral AI i EU. Undgå helbred og andet følsomt, og brug kun fornavne. Jude gemmer ikke samtalen. <u>Læs mere</u></span></label>
+          <button class="primary" type="button" data-start disabled>Start samtalen</button></div>`;
+
+      const el = document.getElementById("a");
+      el.innerHTML = html;
+      el.querySelector("[data-fold]").parentElement.parentElement;
+      el.querySelectorAll("[data-fold]").forEach((b) =>
+        b.addEventListener("click", () => {
+          const f = b.parentElement;
+          const open = f.dataset.open !== "true";
+          f.dataset.open = String(open);
+          b.setAttribute("aria-expanded", String(open));
+          f.querySelector(".body").hidden = !open;
+        }),
+      );
+      // "Personen er din" follows the name as it is typed.
+      const name = el.querySelector('[data-key="name"]');
+      const relLabel = el.querySelector('[data-label="rel"]');
+      name.addEventListener("input", () => {
+        const n = name.value.trim();
+        relLabel.textContent = n ? `${n} er din` : "Personen er din";
+      });
+
+      function closeAll() {
+        el.querySelectorAll("[data-inline]").forEach((r) => {
+          r.setAttribute("aria-expanded", "false");
+          r.nextElementSibling.hidden = true;
+        });
+      }
+      el.querySelectorAll("[data-inline]").forEach((row) =>
+        row.addEventListener("click", () => {
+          const box = row.nextElementSibling;
+          const open = row.getAttribute("aria-expanded") !== "true";
+          closeAll();
+          if (!open) return;
+          row.setAttribute("aria-expanded", "true");
+          const o = OPTIONS[row.dataset.inline];
+          const cur = row.querySelector(".v");
+          const chosen = cur.textContent.split(", ");
+          const render = () => {
+            box.innerHTML =
+              [...new Set([...o.list, ...chosen.filter((c) => c && !o.list.includes(c))])]
+                .map(
+                  (v) =>
+                    `<button type="button" class="chip" aria-pressed="${chosen.includes(v)}">${v}</button>`,
+                )
+                .join("") +
+              (o.soon || [])
+                .map(
+                  (v) => `<button type="button" class="chip" disabled>${v} · kommer snart</button>`,
+                )
+                .join("") +
+              (o.add ? `<button type="button" class="chip add" data-add>+ Tilføj</button>` : "");
+            box.querySelectorAll(".chip:not(:disabled):not([data-add])").forEach((c) =>
+              c.addEventListener("click", () => {
+                if (o.multi) {
+                  const i = chosen.indexOf(c.textContent);
+                  i >= 0 ? chosen.splice(i, 1) : chosen.push(c.textContent);
+                  cur.textContent = chosen.filter(Boolean).join(", ") || "Tilføj";
+                  c.setAttribute("aria-pressed", String(i < 0));
+                } else {
+                  cur.textContent = c.textContent;
+                  closeAll();
+                }
+              }),
+            );
+            box.querySelector("[data-add]")?.addEventListener("click", (e) => {
+              const input = document.createElement("input");
+              input.className = "addline";
+              input.placeholder = "Skriv og tryk Enter";
+              e.currentTarget.replaceWith(input);
+              input.focus();
+              input.addEventListener("keydown", (k) => {
+                if (k.key !== "Enter" || !input.value.trim()) return;
+                const v = input.value.trim().replace(/^./, (x) => x.toUpperCase());
+                if (o.multi) {
+                  if (!chosen.includes(v)) chosen.push(v);
+                  cur.textContent = chosen.filter(Boolean).join(", ");
+                  render();
+                } else {
+                  cur.textContent = v;
+                  closeAll();
+                }
+              });
+            });
+          };
+          render();
+          box.hidden = false;
+        }),
+      );
+      const box = el.querySelector("[data-consent]");
+      const start = el.querySelector("[data-start]");
+      box.addEventListener("change", () => (start.disabled = !box.checked));
+    </script>
+  </body>
+</html>

@@ -1,0 +1,639 @@
+<!doctype html>
+<html lang="da">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Jude – forside på telefonen</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --paper: #f8f6f2;
+        --beige: #efeae4;
+        --ink: #2f3f44;
+        --slate: #5c6a6f;
+        --line: #c9c1b6;
+        --hair: #e4ded5;
+        --accent: #a88e6e;
+        --deep: #7d6748;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      body {
+        background: #ece8e2;
+        color: var(--ink);
+        font:
+          15px/1.5 Inter,
+          system-ui,
+          sans-serif;
+        font-feature-settings: "tnum";
+      }
+      button,
+      input,
+      textarea {
+        font: inherit;
+        color: inherit;
+      }
+      button {
+        cursor: pointer;
+      }
+      header {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 26px 16px 4px;
+      }
+      .eyebrow {
+        font-size: 11px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--accent);
+        font-weight: 500;
+      }
+      header h1 {
+        font-weight: 400;
+        font-size: 26px;
+        margin: 6px 0 4px;
+      }
+      header p {
+        color: var(--slate);
+        font-size: 14px;
+        max-width: 760px;
+      }
+      .grid {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 18px 16px 48px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        gap: 28px;
+      }
+      .option h2 {
+        font-size: 15px;
+        font-weight: 500;
+        display: flex;
+        gap: 10px;
+        align-items: baseline;
+      }
+      .option h2 b {
+        color: var(--accent);
+        font-weight: 500;
+        font-size: 22px;
+      }
+      .facts {
+        font-size: 13px;
+        color: var(--slate);
+        margin: 4px 0 12px;
+        min-height: 58px;
+      }
+      .device {
+        background: var(--paper);
+        border-radius: 30px;
+        overflow: hidden;
+        box-shadow:
+          0 1px 0 var(--hair),
+          0 20px 50px -30px rgba(47, 63, 68, 0.35);
+        height: 760px;
+        display: flex;
+        flex-direction: column;
+      }
+      .banner {
+        background: var(--beige);
+        font-size: 11.5px;
+        color: var(--slate);
+        text-align: center;
+        padding: 7px;
+      }
+      .scroll {
+        flex: 1;
+        overflow-y: auto;
+        padding: 14px 20px 0;
+      }
+      .mark {
+        letter-spacing: 0.3em;
+        font-size: 12px;
+      }
+      .hello {
+        font-size: 25px;
+        font-weight: 300;
+        line-height: 1.2;
+        margin: 22px 0 22px;
+      }
+      .foot {
+        padding: 12px 20px 20px;
+        background: linear-gradient(to top, var(--paper) 75%, rgba(248, 246, 242, 0));
+      }
+      .primary {
+        width: 100%;
+        border: 0;
+        border-radius: 14px;
+        background: var(--ink);
+        color: var(--paper);
+        padding: 15px;
+        font-size: 15.5px;
+      }
+      .primary:disabled {
+        opacity: 0.4;
+        cursor: default;
+      }
+      .consent {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+        font-size: 12px;
+        color: var(--slate);
+        line-height: 1.45;
+        margin-bottom: 12px;
+      }
+      .consent input {
+        margin-top: 2px;
+        width: 16px;
+        height: 16px;
+        accent-color: var(--ink);
+        flex-shrink: 0;
+      }
+
+      /* Shared: the folding sections */
+      .fold {
+        border-top: 1px solid var(--hair);
+      }
+      .fold:last-of-type {
+        border-bottom: 1px solid var(--hair);
+      }
+      .fold > button {
+        width: 100%;
+        border: 0;
+        background: none;
+        display: grid;
+        grid-template-columns: 34px 1fr 18px;
+        align-items: center;
+        text-align: left;
+        padding: 16px 0;
+      }
+      .fold .num {
+        color: var(--accent);
+        font-size: 15px;
+        font-weight: 500;
+      }
+      .fold .q {
+        font-size: 16.5px;
+      }
+      .fold .sum {
+        display: block;
+        font-size: 12.5px;
+        color: var(--slate);
+        margin-top: 1px;
+      }
+      .fold .chev {
+        color: var(--slate);
+        transition: transform 0.2s;
+      }
+      .fold[data-open="true"] .chev {
+        transform: rotate(180deg);
+      }
+      .body {
+        padding: 0 0 20px 34px;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+      .lbl {
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--slate);
+        margin-bottom: 7px;
+        display: block;
+      }
+
+      /* 01: lines and chips */
+      .line {
+        width: 100%;
+        border: 0;
+        border-bottom: 1px solid var(--line);
+        background: transparent;
+        padding: 6px 0 7px;
+        font-size: 17px;
+        border-radius: 0;
+      }
+      .line:focus {
+        outline: 0;
+        border-bottom: 2px solid var(--ink);
+        padding-bottom: 6px;
+      }
+      .line::placeholder {
+        color: #a9a198;
+      }
+      .pair {
+        display: grid;
+        grid-template-columns: 1fr 76px;
+        gap: 18px;
+      }
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+      }
+      .chip {
+        border: 1px solid var(--line);
+        background: transparent;
+        border-radius: 999px;
+        padding: 6px 13px;
+        font-size: 13.5px;
+      }
+      .chip[aria-pressed="true"] {
+        background: var(--ink);
+        border-color: var(--ink);
+        color: var(--paper);
+      }
+      .chip:disabled {
+        color: #b3aca3;
+        border-style: dashed;
+        cursor: default;
+      }
+      .chip.add {
+        color: var(--deep);
+        border-style: dashed;
+        border-color: var(--accent);
+      }
+      .seg3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        border-bottom: 1px solid var(--line);
+      }
+      .seg3 button {
+        border: 0;
+        background: none;
+        padding: 8px 0;
+        font-size: 14px;
+        color: var(--slate);
+        border-bottom: 2px solid transparent;
+        margin-bottom: -1px;
+      }
+      .seg3 button[aria-pressed="true"] {
+        color: var(--ink);
+        border-bottom-color: var(--ink);
+      }
+      .voice {
+        display: flex;
+        justify-content: space-between;
+        font-size: 13px;
+        color: var(--slate);
+      }
+      .voice button {
+        border: 0;
+        background: none;
+        color: var(--deep);
+        font-size: 12.5px;
+      }
+      .more {
+        border: 0;
+        background: none;
+        padding: 0;
+        text-align: left;
+        font-size: 13.5px;
+        color: var(--slate);
+      }
+      .more::before {
+        content: "+ ";
+        color: var(--accent);
+      }
+      .more[aria-expanded="true"]::before {
+        content: "– ";
+      }
+
+      /* 02: grouped rows, as in the phone's settings */
+      .group {
+        background: #fff;
+        border-radius: 14px;
+        overflow: hidden;
+      }
+      .rowi {
+        display: grid;
+        grid-template-columns: 112px 1fr;
+        align-items: center;
+        padding: 12px 14px;
+        min-height: 48px;
+        font-size: 15px;
+      }
+      .rowi + .rowi {
+        border-top: 1px solid var(--hair);
+      }
+      .rowi span {
+        color: var(--slate);
+        font-size: 14px;
+      }
+      .rowi input {
+        border: 0;
+        background: transparent;
+        text-align: right;
+        font-size: 15px;
+        width: 100%;
+      }
+      .rowi input:focus {
+        outline: 0;
+      }
+      .rowi .val {
+        text-align: right;
+        color: var(--ink);
+        font-size: 15px;
+      }
+      .rowi .val::after {
+        content: "  ›";
+        color: var(--line);
+      }
+      .glabel {
+        font-size: 11.5px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--slate);
+        margin: 0 0 6px 14px;
+      }
+
+      /* 03: big questions, one at a time inside the fold */
+      .big {
+        font-size: 22px;
+        font-weight: 300;
+        line-height: 1.6;
+      }
+      .big .in {
+        border: 0;
+        border-bottom: 1.5px solid var(--accent);
+        background: transparent;
+        font-size: 22px;
+        font-weight: 400;
+        padding: 0 2px;
+        border-radius: 0;
+        field-sizing: content;
+        min-width: 2ch;
+      }
+      .big .in:focus {
+        outline: 0;
+        border-bottom-color: var(--ink);
+      }
+      .big .pick {
+        border: 0;
+        background: none;
+        font-size: 22px;
+        font-weight: 400;
+        padding: 0 2px;
+        border-bottom: 1.5px solid var(--accent);
+      }
+      .sheet {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        padding: 10px 0 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <span class="eyebrow">Jude · forsiden på telefonen</span>
+      <h1>Tre bud på en forside uden hvide kasser</h1>
+      <p>
+        Alle tre har to sektioner, der folder sig ud: 01 "Fortæl Jude lidt om dig selv" (foldet
+        sammen) og 02 "Hvem skal du tale med, og om hvad?" (åben). Profilen gemmes, når du trykker
+        "Start samtalen"; der er ingen ekstra Gem-knap. Klik, skriv og fold ud i hvert bud.
+      </p>
+    </header>
+
+    <div class="grid">
+      <section class="option">
+        <h2><b>01</b> Linjer og valgknapper</h2>
+        <p class="facts">
+          Tynde linjer at skrive på og runde valgknapper i stedet for lister. Som Headspace og Apple
+          Fitness. Fordel: luftigt, hurtigt med tommelfingeren. Ulempe: mange valgknapper fylder
+          lidt i højden.
+        </p>
+        <div class="device" id="a"></div>
+      </section>
+      <section class="option">
+        <h2><b>02</b> Rækker som i Indstillinger</h2>
+        <p class="facts">
+          Felterne står som rækker i en hvid gruppe med navnet til venstre og svaret til højre. Som
+          iPhonens Indstillinger. Fordel: kompakt og velkendt. Ulempe: stadig hvide flader, bare
+          pænere.
+        </p>
+        <div class="device" id="b"></div>
+      </section>
+      <section class="option">
+        <h2><b>03</b> Store sætninger</h2>
+        <p class="facts">
+          Hver sektion er en sætning, du udfylder; et tryk på et understreget ord viser valgene.
+          Fordel: personligt og helt uden kasser. Ulempe: længere roller og baggrund passer dårligt
+          ind i en sætning.
+        </p>
+        <div class="device" id="c"></div>
+      </section>
+    </div>
+
+    <script>
+      const ROLES = ["Leder", "Far", "Storebror", "Kollega"];
+      const RELATIONS = [
+        "Medarbejder",
+        "Kollega",
+        "Chef",
+        "Søn",
+        "Datter",
+        "Partner",
+        "Forælder",
+        "Ven",
+        "Andet",
+      ];
+      const banner = '<div class="banner">Demo · din profil slettes efter 24 timer</div>';
+      const chev =
+        '<svg class="chev" aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg>';
+      const chips = (items, on, extra = "") =>
+        `<div class="chips" data-chips>${items
+          .map((r) => `<button type="button" class="chip" aria-pressed="${r === on}">${r}</button>`)
+          .join("")}${extra}</div>`;
+      const fold = (n, q, sum, body, open) => `<div class="fold" data-open="${open}">
+          <button type="button" aria-expanded="${open}" data-fold><span class="num">${n}</span>
+            <span><span class="q">${q}</span><span class="sum">${sum}</span></span>${chev}</button>
+          <div class="body" ${open ? "" : "hidden"}>${body}</div></div>`;
+      const foot = `<div class="foot"><label class="consent"><input type="checkbox" data-consent>
+          <span>Det, du siger, sendes til Mistral AI i EU. Undgå helbred og andet følsomt, og brug kun fornavne. Jude gemmer ikke samtalen. <u>Læs mere</u></span></label>
+          <button class="primary" type="button" data-start disabled>Start samtalen</button></div>`;
+      const shell = (
+        inner,
+      ) => `${banner}<div class="scroll"><div style="display:flex;justify-content:space-between;font-size:13px;color:var(--slate)"><span class="mark" style="color:var(--ink)">◎ JUDE</span><span>Konto</span></div>
+          <p class="hello">Øv den svære samtale,<br>før du tager den.</p>${inner}<div style="height:16px"></div></div>${foot}`;
+
+      const A = shell(
+        fold(
+          "01",
+          "Fortæl Jude lidt om dig selv",
+          "Gør feedbacken mere præcis · valgfrit",
+          `<div class="pair"><div><span class="lbl">Fornavn</span><input class="line" placeholder="Fx Stef"></div>
+             <div><span class="lbl">Alder</span><input class="line" inputmode="numeric" placeholder="48"></div></div>
+           <div><span class="lbl">Dine roller</span>${chips(ROLES, "", '<button type="button" class="chip add">+ Tilføj</button>')}</div>
+           <div><span class="lbl">Det vil du blive bedre til</span><input class="line" placeholder="Fx at holde fast uden at blive hård"></div>`,
+          false,
+        ) +
+          fold(
+            "02",
+            "Hvem skal du tale med, og om hvad?",
+            "Kun fornavn, aldrig efternavn",
+            `<div><span class="lbl">Du er</span>${chips(ROLES, "Leder")}</div>
+           <div class="pair"><div><span class="lbl">Fornavn</span><input class="line" value="Jens"></div>
+             <div><span class="lbl">Alder</span><input class="line" inputmode="numeric" value="52"></div></div>
+           <div><span class="lbl">Køn</span>${chips(["Mand", "Andet"], "Mand", '<button type="button" class="chip" disabled>Kvinde · kommer snart</button>')}</div>
+           <div><span class="lbl">Jens er din</span>${chips(RELATIONS, "Medarbejder")}</div>
+           <button type="button" class="more" aria-expanded="false" data-more>Tilføj baggrund (valgfrit)</button>
+           <div class="stack" data-bg hidden style="display:flex;flex-direction:column;gap:18px">
+             <div><span class="lbl">Hvad handler det om?</span><input class="line" placeholder="Fx at opgaverne flytter til et nyt team"></div>
+             <div><span class="lbl">Hvad vil du opnå?</span><input class="line" placeholder="Fx at han føler sig hørt"></div>
+             <div><span class="lbl">Sværhedsgrad</span><div class="seg3" data-seg><button type="button" aria-pressed="false">Let</button><button type="button" aria-pressed="true">Middel</button><button type="button" aria-pressed="false">Svær</button></div></div>
+           </div>
+           <div class="voice"><span>Stemme: Rolig</span><button type="button">▶ Hør</button></div>`,
+            true,
+          ),
+      );
+
+      const row = (label, value, input) =>
+        `<div class="rowi"><span>${label}</span>${input ? `<input value="${value}" placeholder="${input}">` : `<div class="val">${value}</div>`}</div>`;
+      const B = shell(
+        fold(
+          "01",
+          "Fortæl Jude lidt om dig selv",
+          "Gør feedbacken mere præcis · valgfrit",
+          `<div class="group">${row("Fornavn", "", "Fx Stef")}${row("Alder", "", "48")}${row("Roller", "Leder, far")}${row("Bedre til", "", "Fx at holde fast")}</div>`,
+          false,
+        ) +
+          fold(
+            "02",
+            "Hvem skal du tale med, og om hvad?",
+            "Kun fornavn, aldrig efternavn",
+            `<div><p class="glabel">Personen</p><div class="group">${row("Fornavn", "Jens", "Fornavn")}${row("Alder", "52", "Alder")}${row("Køn", "Mand")}${row("Jens er din", "Medarbejder")}${row("Du er", "Leder")}</div></div>
+           <div><p class="glabel">Baggrund · valgfrit</p><div class="group">${row("Handler om", "", "Tilføj")}${row("Dit mål", "", "Tilføj")}${row("Sværhed", "Middel")}</div></div>
+           <div><p class="glabel">Stemme</p><div class="group"><div class="rowi"><span>Rolig</span><div class="val" style="color:var(--deep)">▶ Hør</div></div></div></div>`,
+            true,
+          ),
+      );
+
+      const pick = (v, list) =>
+        `<button type="button" class="pick" data-pick="${list}">${v}</button>`;
+      const C = shell(
+        fold(
+          "01",
+          "Fortæl Jude lidt om dig selv",
+          "Gør feedbacken mere præcis · valgfrit",
+          `<p class="big">Jeg hedder <input class="in" placeholder="Stef">, er <input class="in" placeholder="48" inputmode="numeric"> år og ${pick("leder", "roles")}.
+             Jeg vil blive bedre til <input class="in" placeholder="at holde fast">.</p><div class="sheet" data-sheet hidden></div>`,
+          false,
+        ) +
+          fold(
+            "02",
+            "Hvem skal du tale med, og om hvad?",
+            "Kun fornavn, aldrig efternavn",
+            `<p class="big">Jeg skal tale med <input class="in" value="Jens">, ${pick("mand", "gender")}, <input class="in" value="52" inputmode="numeric"> år, min ${pick("medarbejder", "rel")}.
+             Det handler om <input class="in" placeholder="…">.</p><div class="sheet" data-sheet hidden></div>
+           <div class="voice"><span>Stemme: Rolig</span><button type="button">▶ Hør</button></div>`,
+            true,
+          ),
+      );
+
+      const LISTS = {
+        roles: ROLES.map((r) => r.toLowerCase()),
+        gender: ["mand", "andet"],
+        rel: RELATIONS.map((r) => r.toLowerCase()),
+      };
+
+      function wire(el) {
+        el.querySelectorAll("[data-fold]").forEach((b) =>
+          b.addEventListener("click", () => {
+            const f = b.parentElement;
+            const open = f.dataset.open !== "true";
+            f.dataset.open = String(open);
+            b.setAttribute("aria-expanded", String(open));
+            f.querySelector(".body").hidden = !open;
+          }),
+        );
+        el.querySelectorAll("[data-chips]").forEach((g) =>
+          g.querySelectorAll(".chip:not(.add)").forEach((c) =>
+            c.addEventListener("click", () => {
+              if (c.disabled) return;
+              const multi = g
+                .closest(".body")
+                ?.parentElement.querySelector(".q")
+                .textContent.startsWith("Fortæl");
+              if (multi)
+                c.setAttribute("aria-pressed", String(c.getAttribute("aria-pressed") !== "true"));
+              else
+                g.querySelectorAll(".chip").forEach((x) =>
+                  x.setAttribute("aria-pressed", String(x === c)),
+                );
+            }),
+          ),
+        );
+        el.querySelectorAll("[data-seg] button").forEach((b) =>
+          b.addEventListener("click", () =>
+            b.parentElement
+              .querySelectorAll("button")
+              .forEach((x) => x.setAttribute("aria-pressed", String(x === b))),
+          ),
+        );
+        el.querySelector("[data-more]")?.addEventListener("click", (e) => {
+          const m = e.currentTarget;
+          const open = m.getAttribute("aria-expanded") !== "true";
+          m.setAttribute("aria-expanded", String(open));
+          el.querySelector("[data-bg]").hidden = !open;
+        });
+        el.querySelectorAll("[data-pick]").forEach((p) =>
+          p.addEventListener("click", () => {
+            const sheet = p.closest(".body").querySelector("[data-sheet]");
+            sheet.hidden = false;
+            sheet.innerHTML = LISTS[p.dataset.pick]
+              .map(
+                (v) =>
+                  `<button type="button" class="chip" aria-pressed="${v === p.textContent}">${v}</button>`,
+              )
+              .join("");
+            sheet.querySelectorAll(".chip").forEach((c) =>
+              c.addEventListener("click", () => {
+                p.textContent = c.textContent;
+                sheet.hidden = true;
+              }),
+            );
+          }),
+        );
+        if (el.id === "a") {
+          const f2 = el.querySelectorAll(".fold")[1];
+          const sum = f2.querySelector(".sum");
+          const upd = () => {
+            const [name, age] = [...f2.querySelectorAll(".pair input")].map((i) => i.value.trim());
+            const rel = [...f2.querySelectorAll(".chips")][2]
+              ?.querySelector('[aria-pressed="true"]')
+              ?.textContent.toLowerCase();
+            sum.textContent = name
+              ? name + (age ? ", " + age : "") + (rel ? " · din " + rel : "")
+              : "Kun fornavn, aldrig efternavn";
+          };
+          f2.addEventListener("input", upd);
+          f2.addEventListener("click", () => setTimeout(upd));
+          upd();
+        }
+        const box = el.querySelector("[data-consent]");
+        const start = el.querySelector("[data-start]");
+        box.addEventListener("change", () => (start.disabled = !box.checked));
+      }
+
+      for (const [id, html] of [
+        ["a", A],
+        ["b", B],
+        ["c", C],
+      ]) {
+        const el = document.getElementById(id);
+        el.innerHTML = html;
+        wire(el);
+      }
+    </script>
+  </body>
+</html>

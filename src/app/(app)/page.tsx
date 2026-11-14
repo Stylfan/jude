@@ -8,8 +8,8 @@ import { getProfile, hasConsented } from "@/services/profiles";
 export const dynamic = "force-dynamic";
 
 /**
- * The conversation, straight away: the profile is offered after the first
- * feedback instead of before the first conversation.
+ * The front page: what you told Jude about yourself (folded), who you
+ * talk to, what about, and the conversation itself.
  */
 export default async function ConversationPage() {
   const user = await requireUser();
@@ -17,11 +17,12 @@ export default async function ConversationPage() {
   return (
     <Coach
       consented={hasConsented(profile)}
-      hasProfile={
-        profile !== null &&
-        (profile.firstName !== "" || profile.roles.length > 0 || profile.improve !== "")
-      }
-      roles={profile?.roles.map((r) => r.label) ?? []}
+      profile={{
+        firstName: profile?.firstName ?? "",
+        age: profile?.age == null ? "" : String(profile.age),
+        roles: profile?.roles ?? [],
+        improve: profile?.improve ?? "",
+      }}
       voices={publicVoices(readVoices())}
       secondsPerTurn={readLimits().secondsPerTurn}
     />

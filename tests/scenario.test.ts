@@ -34,6 +34,12 @@ describe("the set-up", () => {
     expect(schema.safeParse({ ...lone, about: "Hun hedder lone@firma.dk" }).success).toBe(false);
   });
 
+  it("takes a relation of the person's own, in lower case, but no identifiers", () => {
+    expect(schema.parse({ ...lone, relation: "Nabo" }).relation).toBe("nabo");
+    expect(schema.safeParse({ ...lone, relation: "" }).success).toBe(false);
+    expect(schema.safeParse({ ...lone, relation: "20 30 40 50" }).success).toBe(false);
+  });
+
   it("can skip the context and still be a set-up", () => {
     const s = schema.parse({ ...lone, about: "", goal: "", reaction: "" });
     expect(hasContext(s)).toBe(false);

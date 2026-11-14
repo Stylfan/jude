@@ -34,7 +34,8 @@ export const REACTIONS = [
 export const DIFFICULTIES = ["let", "middel", "svær"] as const;
 
 export type Gender = (typeof GENDERS)[number];
-export type Relation = (typeof RELATIONS)[number];
+/** One of RELATIONS, or the person's own word for it ("nabo"). */
+export type Relation = string;
 export type Difficulty = (typeof DIFFICULTIES)[number];
 
 /** One word of letters, a hyphen allowed: "Lone", "Anne-Mette". No surname. */
@@ -67,7 +68,10 @@ export function scenarioSchema(maxChars: number) {
     name: firstName,
     age: z.coerce.number().int().min(3).max(110),
     gender: z.enum(GENDERS),
-    relation: z.enum(RELATIONS),
+    /** One of RELATIONS or the person's own word, lower case: "medarbejder", "nabo". */
+    relation: freeText(40)
+      .pipe(z.string().min(1))
+      .transform((v) => v.toLowerCase()),
     /** The context; everything below may be left empty ("Spring over"). */
     about: freeText(maxChars).default(""),
     goal: freeText(maxChars).default(""),

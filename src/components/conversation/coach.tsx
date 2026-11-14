@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import type { PublicVoice } from "@/domain/voices";
 import { Wordmark } from "@/components/ui/wordmark";
+import { saveProfileAction } from "@/actions/profile";
 import { unlockAudio } from "@/lib/audio-unlock";
 import { CrisisCard } from "./crisis-card";
 import { FeedbackView } from "./feedback-view";
@@ -14,14 +15,16 @@ import {
   postJson,
   type ApiError,
   type LimitWhich,
+  type ProfileDraft,
   type ScenarioDraft,
   type Started,
   type Turn,
 } from "./types";
 
 /**
- * Jude's one screen: the set-up on one page (with the consent the first
- * time), the conversation, feedback, and the safety stop. Everything about the conversation lives in this
+ * Jude's one screen: the front page (about you, who you talk to, what
+ * about, and the consent the first time), the conversation, feedback, and
+ * the safety stop. Everything about the conversation lives in this
  * component's state and is gone when the page closes or a new one starts.
  */
 
@@ -39,15 +42,12 @@ type State =
 
 export function Coach({
   consented: consentedBefore,
-  hasProfile,
-  roles,
+  profile,
   voices,
   secondsPerTurn,
 }: {
   consented: boolean;
-  /** Whether the person has told Jude anything about themselves yet. */
-  hasProfile: boolean;
-  roles: string[];
+  profile: ProfileDraft;
   voices: PublicVoice[];
   secondsPerTurn: number;
 }) {
@@ -56,8 +56,11 @@ export function Coach({
   const te = useTranslations("errors");
   const ts = useTranslations("setup");
   const tn = useTranslations("nav");
+  const tp = useTranslations("setup.errors");
   const [state, setState] = useState<State>({ screen: "setup" });
   const [consented, setConsented] = useState(consentedBefore);
+  // What was last saved, so "Start samtalen" saves the profile only when it changed.
+  const [saved, setSaved] = useState(profile);
   // A new key gives a new, empty set-up after "Ny samtale".
   const [round, setRound] = useState(0);
   const [busy, setBusy] = useState(false);
@@ -69,12 +72,26 @@ export function Coach({
     setState({ screen: "setup" });
   };
 
-  const start = async (scenario: ScenarioDraft, consent: boolean) => {
+  const start = async (scenario: ScenarioDraft, me: ProfileDraft, consent: boolean) => {
     setError(null);
     if (state.screen !== "setup") return;
     // This tap is what lets a phone play the voice and hear the microphone.
     unlockAudio();
     setBusy(true);
+    if (JSON.stringify(me) !== JSON.stringify(saved)) {
+      const result = await saveProfileAction({
+        firstName: me.firstName.trim(),
+        age: me.age ? Number(me.age) : null,
+        roles: me.roles,
+        improve: me.improve,
+      });
+      if (!result.ok) {
+        setBusy(false);
+        setError(tp("invalid"));
+        return;
+      }
+      setSaved(me);
+    }
     const answer = await postJson<Started | { error: ApiError; which?: LimitWhich }>(
       "/api/conversation/start",
       { scenario, consent },
@@ -111,20 +128,20 @@ export function Coach({
           <span className="text-ink">
             <Wordmark />
           </span>
-          <Link href="/profil" className="py-1.5 text-[13px] text-slate hover:text-ink">
-            {tn("profile")}
+          <Link href="/account" className="py-1.5 text-[13px] text-slate hover:text-ink">
+            {tn("account")}
           </Link>
         </div>
       )}
       {state.screen === "setup" && (
         <Setup
           key={round}
-          roles={roles}
+          profile={saved}
           voices={voices}
           consented={consented}
           busy={busy}
           error={error}
-          onStart={(s, consent) => void start(s, consent)}
+          onStart={(s, me, consent) => void start(s, me, consent)}
         />
       )}
       {state.screen === "talk" && (
@@ -147,7 +164,6 @@ export function Coach({
           history={state.history}
           ticket={state.ticket}
           notice={state.notice}
-          inviteProfile={!hasProfile}
           onAgain={again}
         />
       )}

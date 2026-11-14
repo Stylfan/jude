@@ -393,38 +393,43 @@
     "conversation": "Til samtalen"
   },
   "setup": {
-    "start": "Start samtalen",
-    "starting": "Starter …",
+    "hello": "Øv den svære samtale,\nfør du tager den.",
+    "add": "Tilføj",
+    "addOwn": "+ Tilføj",
+    "addPlaceholder": "Skriv og tryk Enter",
+    "me": {
+      "title": "Fortæl Jude lidt om dig selv",
+      "summary": "Gør feedbacken mere præcis · valgfrit",
+      "firstName": "Fornavn",
+      "age": "Alder",
+      "roles": "Dine roller",
+      "improve": "Bedre til"
+    },
     "who": {
-      "yourRole": "Du er",
-      "yourRoleOther": "Skriv din rolle",
-      "otherRole": "Andet …",
+      "title": "Hvem skal du tale med?",
+      "group": "Personen, du skal tale med",
       "name": "Fornavn",
-      "nameHint": "Kun fornavn, aldrig efternavn.",
+      "nameHint": "Kun fornavn",
       "age": "Alder",
       "gender": "Køn",
+      "yourRole": "Du er",
       "relation": "{name} er din",
       "relationFallback": "Personen er din",
-      "soon": "{label} (kommer snart)",
+      "soon": "{label} · kommer snart",
       "youngSoon": "Under {age} år kommer snart."
     },
-    "why": {
-      "about": "Hvad handler det om?",
-      "aboutPlaceholder": "Fx at opgaverne flytter til et nyt team",
-      "goal": "Hvad vil du opnå?",
-      "goalPlaceholder": "Fx at beslutningen bliver forstået, og at personen føler sig hørt",
+    "what": {
+      "title": "Hvad skal I tale om?",
+      "summary": "Valgfrit",
+      "about": "Handler om",
+      "goal": "Dit mål",
       "reaction": "{name} plejer at",
+      "reactionFallback": "Personen plejer at",
       "reactionNone": "Ved ikke",
-      "difficulty": "Sværhedsgrad",
-      "more": "Tilføj baggrund (valgfrit)",
-      "reactionFallback": "Personen plejer at"
-    },
-    "voice": {
-      "line": "Stemme: {label}",
-      "label": "Stemme",
-      "listen": "Hør",
-      "them": "Personen",
-      "none": "{name} svarer med undertekst. Der er ingen stemmer sat op endnu."
+      "difficulty": "Sværhed",
+      "voice": "Stemme",
+      "listen": "Hør stemmen {label}",
+      "subtitles": "Undertekst"
     },
     "genders": {
       "kvinde": "Kvinde",
@@ -467,7 +472,8 @@
     "errors": {
       "invalid": "Noget i opsætningen kan ikke bruges. Brug kun fornavn, og skriv ikke e-mail, telefon- eller CPR-numre."
     },
-    "title": "Hvem skal du tale med?"
+    "start": "Start samtalen",
+    "starting": "Starter …"
   },
   "talk": {
     "minutes": "{used} af {total} minutter",
@@ -504,8 +510,7 @@
     "again": "Ny samtale",
     "loading": "Feedbacken skrives …",
     "tooShort": "Samtalen var for kort til feedback. Prøv igen, og sig lidt mere.",
-    "close": "Luk",
-    "profile": "Fortæl Jude lidt om dig selv, så passer feedbacken bedre."
+    "close": "Luk"
   },
   "crisis": {
     "title": "Vi stopper samtalen her",

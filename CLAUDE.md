@@ -29,14 +29,15 @@ work with the product owner.
 - Profile (stored, deletable, exportable): first name, age, your roles
   (private: far, storebror, partner …; work: stilling), and what you want
   to get better at. Nothing else.
-- Set-up per conversation, on one page (design/faerre-klik.html, option 01,
-  chosen 2026-11-13): your role, the other person's first name, age,
-  gender and relation; a folded "Tilføj baggrund (valgfrit)" with what it
-  is about, what you want to achieve, how the person usually reacts and
-  difficulty (Let, Middel, Svær); the voice chosen by itself with "Hør".
-  Genders and ages without a voice yet show as "kommer snart".
-  "Start samtalen" also starts the microphone. The profile is offered
-  after the first feedback, not before the first conversation.
+- The front page, phone first (design/forside-2a.html, chosen 2026-11-14):
+  three sections that fold open (01 open, 02 and 03 folded at start), with open rows (label left, answer
+  right, hairlines, no boxes). 01 "Fortæl Jude lidt om dig selv" (the profile); 02 "Hvem skal du tale med?" (first name, age, gender,
+  your role, the relation); 03 "Hvad skal I tale om?" (what it is
+  about, your goal, how the person usually reacts, difficulty, the voice;
+  folded, optional). Choices fold out as round buttons under the row, with
+  "+ Tilføj" for a word of your own. Genders and ages without a voice yet
+  show as "kommer snart". "Start samtalen" saves the profile if it
+  changed and starts the microphone.
 - **First names only, never a surname, never anything that identifies a
   real person** (no workplace names, addresses, diagnoses). The form says
   so, and the model is told never to ask for or repeat such details.

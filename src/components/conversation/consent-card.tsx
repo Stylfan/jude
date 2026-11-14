@@ -18,7 +18,7 @@ export function ConsentCheck({
 }) {
   const t = useTranslations("consent");
   return (
-    <label className="flex cursor-pointer items-start gap-2.5 rounded-[10px] border border-hairline bg-surface px-3 py-2.5 text-[12.5px] leading-relaxed text-slate">
+    <label className="flex cursor-pointer items-start gap-2.5 text-[12px] leading-relaxed text-slate">
       <input
         type="checkbox"
         checked={checked}
